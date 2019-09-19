@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
 
-    <title>Dashboard | Painel</title>
+    <title>Categorias</title>
   </head>
   <body>
 
@@ -62,16 +62,51 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-          <h1><i class="fas fa-text-height"></i> Basic</h1>
+          <h1><i class="fas fa-edit" style="color: #27aae1;"></i> Admin Categorias</h1>
         </div>
         </div>
       </div>
     </header>
 
-    
+
     <!-- HEADER END -->
 
     <!-- Main Area -->
+    <section class="container py-2 mb-4">
+      <div class="row">
+        <div class="offset-lg-1 col-lg-10" style="min-height:457px;">
+          <form class="" action="Categories.php" method="POST">
+            <div class="card bg-secondary text-light mb-3">
+              <div class="card-header">
+                <h1>Adc Nova Categoria</h1>
+              </div>
+              <div class="card-body bg-dark">
+                <div class="form-group">
+                  <label for="title"> <span class="FieldInfo"> Titulo da Categoria: </span></label>
+                  <input class="form-control" type="text" name="Title" id="title" placeholder="Digite o título aqui: " value="">
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 mb-2">
+                    <a href="Dashboard.php" class="btn btn-warning btn-block"><i class="fas fa-hand-point-left"></i> Voltar para Dashboard</a>
+                  </div>
+                  <div class="col-lg-6 mb-2">
+                    <button type="button" name="Submit" class="btn btn-success btn-block">
+                      <i class="fas fa-rocket"></i> Publicar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+
 
     <!-- End Main Area -->
 
