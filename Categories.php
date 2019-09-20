@@ -1,3 +1,19 @@
+<?php require_once "Includes/DB.php";?>
+<?php require_once "Includes/Functions.php";?>
+<?php
+if (isset($_POST["Submit"])) {
+	$Category = $_POST["CategoryTitle"];
+
+  if(empty($Category)){
+    Error= "Todos os campos devem ser preenchidos";
+    Redirect_to("Categories.php");
+
+}
+
+}
+
+?>
+
 <!doctype html>
 <html lang="pt-br">
   <head>
@@ -83,7 +99,7 @@
               <div class="card-body bg-dark">
                 <div class="form-group">
                   <label for="title"> <span class="FieldInfo"> Titulo da Categoria: </span></label>
-                  <input class="form-control" type="text" name="Title" id="title" placeholder="Digite o título aqui: " value="">
+                  <input class="form-control" type="text" name="CategoryTitle" id="title" placeholder="Digite o título aqui: " value="">
                 </div>
                 <div class="row">
                   <div class="col-lg-6 mb-2">
