@@ -1,14 +1,14 @@
 <?php require_once "Includes/DB.php";?>
 <?php require_once "Includes/Functions.php";?>
+<?php require_once "Includes/Sessions.php";?>
 <?php
 if (isset($_POST["Submit"])) {
 	$Category = $_POST["CategoryTitle"];
 
-  if(empty($Category)){
-    Error= "Todos os campos devem ser preenchidos";
-    Redirect_to("Categories.php");
-
-}
+	if (empty($Category)) {
+		$_SESSION["ErrorMessage"] = "Todos os campos devem ser preenchidos";
+		Redirect_to("Categories.php");
+	}
 
 }
 
@@ -91,6 +91,10 @@ if (isset($_POST["Submit"])) {
     <section class="container py-2 mb-4">
       <div class="row">
         <div class="offset-lg-1 col-lg-10" style="min-height:457px;">
+          <?php
+echo ErrorMessage();
+echo SuccessMessage();
+?>
           <form class="" action="Categories.php" method="POST">
             <div class="card bg-secondary text-light mb-3">
               <div class="card-header">
@@ -106,7 +110,7 @@ if (isset($_POST["Submit"])) {
                     <a href="Dashboard.php" class="btn btn-warning btn-block"><i class="fas fa-hand-point-left"></i> Voltar para Dashboard</a>
                   </div>
                   <div class="col-lg-6 mb-2">
-                    <button type="button" name="Submit" class="btn btn-success btn-block">
+                    <button type="submit" name="Submit" class="btn btn-success btn-block">
                       <i class="fas fa-rocket"></i> Publicar
                     </button>
                   </div>
