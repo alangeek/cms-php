@@ -5,20 +5,43 @@
 if (isset($_POST["Submit"])) {
 	$Category = $_POST["CategoryTitle"];
 	$Admin = "AlanGeek";
+	date_default_timezone_set("America/Sao_Paulo");
+	$CurrentTime = time();
+	$DateTime = strftime("%d-%B-%Y %H:%M:%S", $CurrentTime);
 
 	if (empty($Category)) {
 		$_SESSION["ErrorMessage"] = "Todos os campos devem ser preenchidos";
-		Redirect_to("Categories.php");
+		header("Location: Categories.php");
+		exit;
 	} elseif (strlen($Category) < 3) {
 		$_SESSION["ErrorMessage"] = "O título da categoria deve ter mais de 2 caracteres";
-		Redirect_to("Categories.php");
+		header("Location: Categories.php");
+		exit;
 	} elseif (strlen($Category) > 49) {
 		$_SESSION["ErrorMessage"] = "O título da categoria deve ser menos de 50 caracteres";
-		Redirect_to("Categories.php");
+		header("Location: Categories.php");
+		exit;
 	} else {
 		// Query to insert category in DB when everything is fine
-	}
+		global $ConnectingDB;
+		$sql = "INSERT INTO category(title,author,datetime)";
+		$sql .= "VALUES(:categoryName,:adminName,:dateTime)";
+		$stmt = $ConnectingDB->prepare($sql);
+		$stmt->bindValue('categoryName', $Category);
+		$stmt->bindValue(':adminName', $Admin);
+		$stmt->bindValue(':dateTime', $DateTime);
+		$Execute = $stmt->execute();
 
+		if ($Execute) {
+			$_SESSION["SuccessMessage"] = "Categoria com id : " . $ConnectingDB->lastInsertId() . " Adcionada Com Sucesso";
+			header("Location: Categories.php");
+			exit;
+		} else {
+			$_SESSION["ErrorMessage"] = "Algo deu errado. Tente novamente !";
+			header("Location: Categories.php");
+			exit;
+		}
+	}
 } // Ending of Submit Button is-Condition
 
 ?>
