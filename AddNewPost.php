@@ -142,14 +142,22 @@ echo SuccessMessage();
                     <option value="">3</option>
                   </select>
                 </div>
-                <div class="form-group">
-                  <label for="image"> <span class="FieldInfo"> Selecionar Imagem: </span></label>
-
-                </div>
-                <div class="row">
-                  <div class="col-lg-6 mb-2">
-                    <a href="Dashboard.php" class="btn btn-warning btn-block"><i class="fas fa-hand-point-left"></i> Voltar para Dashboard</a>
+                <div class="form-group mb">
+                    <div class="custom-file">
+                      <input class="custom-file-input" type="File" name="Image" id="imageSelect" value="">
+                      <label for="imageSelect" class="custom-file-label">Selecionar Imagem</label>
+                    </div>
                   </div>
+                  <div class="form-group">
+                    <label for="Post"> <span class="FieldInfo"> Post: </span></label>
+                    <textarea class="form-control" id="Post" name="PostDescripton" rows="8" cols="80"></textarea>
+
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-6 mb-2">
+                      <a href="Dashboard.php" class="btn btn-warning btn-block"><i class="fas fa-hand-point-left"></i> Voltar para Dashboard</a>
+                    </div>
                   <div class="col-lg-6 mb-2">
                     <button type="submit" name="Submit" class="btn btn-success btn-block">
                       <i class="fas fa-rocket"></i> Publicar
