@@ -137,9 +137,17 @@ echo SuccessMessage();
                 <div class="form-group">
                   <label for="CategoryTitle"> <span class="FieldInfo"> Selecionar Categoria: </span></label>
                   <select class="form-control" id="CategoryTitle" name="Category">
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
+<?php
+//Fetchinng all the categories from category table
+global $ConnectingDB;
+$sql = "SELECT id, title  FROM category";
+$stmt = $ConnectingDB->query($sql);
+while ($DateRows = $stmt->fetch()) {
+	$Id = $DateRows["id"];
+	$categoryName = $DateRows["title"];
+	?>
+                    <option> <?php echo $categoryName; ?></option>
+<?php }?>
                   </select>
                 </div>
                 <div class="form-group mb">
