@@ -3,22 +3,26 @@
 <?php require_once "Includes/Sessions.php";?>
 <?php
 if (isset($_POST["Submit"])) {
-	$Category = $_POST["CategoryTitle"];
+	$PostTitle = $_POST["PostTitle"];
+	$Category = $_POST["Category"];
+	$Image = $_FILES["Image"]["name"];
+  $Target = "Upload/".basename($_FILES["Image"]["name"])
+	$PostText = $_POST["PostDescription"];
 	$Admin = "AlanGeek";
 	date_default_timezone_set("America/Sao_Paulo");
 	$CurrentTime = time();
 	$DateTime = strftime("%d-%B-%Y %H:%M:%S", $CurrentTime);
 
-	if (empty($Category)) {
-		$_SESSION["ErrorMessage"] = "Todos os campos devem ser preenchidos";
-		header("Location: Categories.php");
+	if (empty($PostTitle)) {
+		$_SESSION["ErrorMessage"] = "O Título não pode estar vazio";
+		header("Location: AddNewPost.php");
 		exit;
-	} elseif (strlen($Category) < 3) {
-		$_SESSION["ErrorMessage"] = "O título da categoria deve ter mais de 2 caracteres";
-		header("Location: Categories.php");
+	} elseif (strlen($PostTitle) < 5) {
+		$_SESSION["ErrorMessage"] = "O Título do Post deve ter mais de 5 caracteres";
+		header("Location: AddNewPost.php");
 		exit;
-	} elseif (strlen($Category) > 49) {
-		$_SESSION["ErrorMessage"] = "O título da categoria deve ser menos de 50 caracteres";
+	} elseif (strlen($PostText) > 999) {
+		$_SESSION["ErrorMessage"] = "A Descrição da Postagem deve ter menos de 1000 caracteres";
 		header("Location: Categories.php");
 		exit;
 	} else {
@@ -127,7 +131,7 @@ if (isset($_POST["Submit"])) {
 echo ErrorMessage();
 echo SuccessMessage();
 ?>
-          <form class="" action="Categories.php" method="POST">
+          <form class="" action="AddNewPost.php" method="POST" enctype="multipart/form-data">
             <div class="card bg-secondary text-light mb-3">
               <div class="card-body bg-dark">
                 <div class="form-group">
@@ -158,7 +162,7 @@ while ($DateRows = $stmt->fetch()) {
                   </div>
                   <div class="form-group">
                     <label for="Post"> <span class="FieldInfo"> Post: </span></label>
-                    <textarea class="form-control" id="Post" name="PostDescripton" rows="8" cols="80"></textarea>
+                    <textarea class="form-control" id="Post" name="PostDescription" rows="8" cols="80"></textarea>
 
                   </div>
 
