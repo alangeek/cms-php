@@ -6,7 +6,7 @@ if (isset($_POST["Submit"])) {
 	$PostTitle = $_POST["PostTitle"];
 	$Category = $_POST["Category"];
 	$Image = $_FILES["Image"]["name"];
-  $Target = "Upload/".basename($_FILES["Image"]["name"])
+	$Target = "uploads/" . basename($_FILES["Image"]["name"]);
 	$PostText = $_POST["PostDescription"];
 	$Admin = "AlanGeek";
 	date_default_timezone_set("America/Sao_Paulo");
@@ -23,26 +23,29 @@ if (isset($_POST["Submit"])) {
 		exit;
 	} elseif (strlen($PostText) > 999) {
 		$_SESSION["ErrorMessage"] = "A Descrição da Postagem deve ter menos de 1000 caracteres";
-		header("Location: Categories.php");
+		header("Location: AddNewPost.php");
 		exit;
 	} else {
-		// Query to insert category in DB when everything is fine
+		// Query to insert Post in DB when everything is fine
 		global $ConnectingDB;
-		$sql = "INSERT INTO category(title,author,datetime)";
-		$sql .= "VALUES(:categoryName,:adminName,:dateTime)";
+		$sql = "INSERT INTO posts(datetime,title,category,author,image,post)";
+		$sql .= "VALUES(:dateTime,:postTitle,:categoryName,:adminName,:imageName,:postDescription)";
 		$stmt = $ConnectingDB->prepare($sql);
-		$stmt->bindValue('categoryName', $Category);
-		$stmt->bindValue(':adminName', $Admin);
 		$stmt->bindValue(':dateTime', $DateTime);
+		$stmt->bindValue(':postTitle', $PostTitle);
+		$stmt->bindValue(':categoryName', $Category);
+		$stmt->bindValue(':adminName', $Admin);
+		$stmt->bindValue(':imageName', $Image);
+		$stmt->bindValue(':postDescription', $PostText);
 		$Execute = $stmt->execute();
-
+		move_uploaded_file($_FILES["Image"]["tmp_name"], $Target);
 		if ($Execute) {
-			$_SESSION["SuccessMessage"] = "Categoria com id : " . $ConnectingDB->lastInsertId() . " Adcionada Com Sucesso";
-			header("Location: Categories.php");
+			$_SESSION["SuccessMessage"] = "Post com id : " . $ConnectingDB->lastInsertId() . " Adcionada Com Sucesso";
+			header("Location: AddNewPost.php");
 			exit;
 		} else {
 			$_SESSION["ErrorMessage"] = "Algo deu errado. Tente novamente !";
-			header("Location: Categories.php");
+			header("Location: AddNewPost.php");
 			exit;
 		}
 	}
