@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
-    <title>Categorias</title>
+    <title>Posts</title>
   </head>
   <body>
     <!-- NAVBAR -->
@@ -57,7 +57,27 @@
         <div class="row">
           <div class="col-md-12">
           <h1><i class="fas fa-blog" style="color: #27aae1;"></i> Blog Posts</h1>
-        </div>
+         </div>
+         <div class="col-lg-3 mb-2">
+          <a href="AddNewPost.php" class="btn btn-primary btn-block">
+            <i class="far fa-newspaper"> Add Nova Postagem</i>
+          </a>
+         </div>
+         <div class="col-lg-3 mb-2">
+          <a href="Categories.php" class="btn btn-info btn-block">
+            <i class="fas fa-newspaper"> Add Nova Categoria</i>
+          </a>
+         </div>
+         <div class="col-lg-3 mb-2">
+          <a href="Admins.php" class="btn btn-default btn-block" style="background-color: #f04f24;color: #fff;">
+            <i class="fas fa-user-plus"> Add Novo Admin</i>
+          </a>
+         </div>
+         <div class="col-lg-3 mb-2">
+          <a href="Comments.php" class="btn btn-default btn-block" style="background-color: #2ecc71;color: #fff;">
+            <i class="fas fa-comments"> Aprovar Comentários</i>
+          </a>
+         </div>
         </div>
       </div>
     </header>
