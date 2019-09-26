@@ -82,7 +82,31 @@
       </div>
     </header>
     <!-- HEADER END -->
-    <br>
+
+    <!-- Main Area -->
+    <section class="container py-2 mb-4">
+      <div class="row">
+        <div class="col-lg-12">
+          <table>
+            <tr>
+              <th>#</th>
+              <th>Titulo</th>
+              <th>Categoria</th>
+              <th>Data & Hora</th>
+              <th>Autor</th>
+              <th>Banner</th>
+              <th>Comentários</th>
+              <th>Ação</th>
+              <th>Visualização ao Vivo</th>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Area End -->
+
+
     <!-- FOOTER -->
     <footer class="bg-dark text-white">
       <div class="container">
