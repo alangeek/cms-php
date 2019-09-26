@@ -1,3 +1,6 @@
+<?php require_once "Includes/DB.php";?>
+<?php require_once "Includes/Functions.php";?>
+<?php require_once "Includes/Sessions.php";?>
 <!doctype html>
 <html lang="pt-br">
   <head>
@@ -97,8 +100,34 @@
               <th>Banner</th>
               <th>Comentários</th>
               <th>Ação</th>
-              <th>Visualização ao Vivo</th>
+              <th>Live Preview</th>
             </tr>
+            <?php
+global $ConnectingDB;
+$sql = "SELECT * FROM posts";
+$stmt = $ConnectingDB->query($sql);
+while ($DataRows = $stmt->fetch()) {
+	$Id = $DataRows["id"];
+	$DateTime = $DataRows["datetime"];
+	$PostTitle = $DataRows["title"];
+	$Category = $DataRows["category"];
+	$Admin = $DataRows["author"];
+	$Image = $DataRows["image"];
+	$PostText = $DataRows["post"];
+
+	?>
+<tr>
+  <td>#</td>
+  <td><?php echo $PostTitle; ?></td>
+  <td><?php echo $Category; ?></td>
+  <td><?php echo $DateTime; ?></td>
+  <td><?php echo $Admin; ?></td>
+  <td><?php echo $Image; ?></td>
+  <td>Comentários</td>
+  <td>Ação</td>
+  <td>Live Preview</td>
+</tr>
+<?php }?>
           </table>
         </div>
       </div>
