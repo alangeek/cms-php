@@ -44,9 +44,8 @@
           <form class="form-inline d-none d-sm-block" action="Blog.php">
             <div class="form-group">
             <input class="form-control mr-2" type="text" name="Search" placeholder="Pesquisar aqui" value="">
-            <button type="button" class="btn btn-primary" name="SearchButton">Ir</button>
+            <button class="btn btn-primary" name="SearchButton">Ir</button>
             </div>
-
           </form>
         </ul>
         </div>
@@ -64,8 +63,23 @@
           <h1 class="lead">Fique Antenado sobre as Últimas Noticias Mundiais</h1>
           <?php
 global $ConnectingDB;
-$sql = "SELECT * FROM posts ORDER BY id DESC";
-$stmt = $ConnectingDB->query($sql);
+//SQL query when Search button is active
+if (isset($_GET["SearchButton"])) {
+	$Search = $_GET["Search"];
+	$sql = "SELECT * FROM posts
+  WHERE datetime LIKE :search
+  OR title LIKE :search
+  OR category LIKE :search
+  OR post LIKE :search";
+	$stmt = $ConnectingDB->prepare($sql);
+	$stmt->bindValue(':search', '%' . $Search . '%');
+	$stmt->execute();
+}
+// The default SQL query
+else {
+	$sql = "SELECT * FROM posts ORDER BY id DESC";
+	$stmt = $ConnectingDB->query($sql);
+}
 while ($DataRows = $stmt->fetch()) {
 
 	$PostId = $DataRows["id"];
