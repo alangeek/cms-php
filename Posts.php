@@ -10,7 +10,6 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
     <title>Posts</title>
   </head>
   <body>
@@ -122,11 +121,28 @@ while ($DataRows = $stmt->fetch()) {
 	?>
   <tbody>
 <tr>
-  <td><?php echo $Sr; ?></td>
-  <td><?php echo $PostTitle; ?></td>
-  <td><?php echo $Category; ?></td>
-  <td><?php echo $DateTime; ?></td>
-  <td><?php echo $Admin; ?></td>
+  <td>
+    <?php echo $Sr; ?></td>
+  <td>
+    <?php
+if (strlen($PostTitle) > 20) {$PostTitle = substr($PostTitle, 0, 15) . '..';}
+	echo $PostTitle;
+	?>
+     </td>
+  <td>
+    <?php
+if (strlen($Category) > 8) {$Category = substr($Category, 0, 8) . '..';}
+	echo $Category;
+	?>
+  </td>
+  <td><?php
+if (strlen($DateTime) > 11) {$DateTime = substr($DateTime, 0, 11) . '..';}
+	echo $DateTime;?></td>
+  <td>
+    <?php
+if (strlen($Admin) > 6) {$Admin = substr($Admin, 0, 6) . '..';}
+	echo $Admin;
+	?></td>
   <td><img src="uploads/<?php echo $Image; ?>" width="170px;" height="50px;"</td>
   <td>Comentários</td>
   <td>
