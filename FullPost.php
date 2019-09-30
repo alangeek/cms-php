@@ -10,6 +10,7 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
     <title>Blog Page</title>
   </head>
   <body>
@@ -61,10 +62,6 @@
           <h1>O Blog da Informação</h1>
           <h1 class="lead">Fique Antenado sobre as Últimas Noticias Mundiais</h1>
           <?php
-echo ErrorMessage();
-echo SuccessMessage();
-?>
-          <?php
 global $ConnectingDB;
 //SQL query when Search button is active
 if (isset($_GET["SearchButton"])) {
@@ -80,7 +77,13 @@ if (isset($_GET["SearchButton"])) {
 }
 // The default SQL query
 else {
-	$sql = "SELECT * FROM posts ORDER BY id DESC";
+	$PostIdFromURL = $_GET["id"];
+	if (!isset($PostIdFromURL)) {
+		$_SESSION["ErrorMessage"] = "Bad Request";
+		header("Location: Blog.php");
+		exit;
+	}
+	$sql = "SELECT * FROM posts WHERE id= '$PostIdFromURL'";
 	$stmt = $ConnectingDB->query($sql);
 }
 while ($DataRows = $stmt->fetch()) {
@@ -103,18 +106,12 @@ while ($DataRows = $stmt->fetch()) {
 
               <hr>
               <p class="card-text">
-                <?php if (strlen($PostDescription) > 150) {$PostDescription = substr($PostDescription, 0, 150) . "...";}
-	echo htmlentities($PostDescription);?></p>
-                <a href="FullPost.php?id=<?php echo $PostId; ?>" style="float: right;">
-                  <span class="btn btn-info">Leia Mais >></span>
-                </a>
+                <?php echo htmlentities($PostDescription); ?></p>
             </div>
           </div>
-          <br>
 <?php }?>
 
         </div>
-
         <!-- Main Area End -->
 
 
