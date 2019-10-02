@@ -146,11 +146,11 @@ if (strlen($Admin) > 6) {$Admin = substr($Admin, 0, 6) . '..';}
   <td><img src="uploads/<?php echo $Image; ?>" width="170px;" height="50px;"</td>
   <td>Comentários</td>
   <td>
-    <a href="#"><span class="btn btn-warning">Editar</span></a>
-    <a href="#"><span class="btn btn-danger">Deletar</span></a>
+    <a href="EditPost.php?id=<?php echo $Id; ?>"><span class="btn btn-warning">Editar</span></a>
+    <a href="DeletePost.php?id=<?php echo $Id; ?>"><span class="btn btn-danger">Deletar</span></a>
   </td>
   <td>
-    <a href="#"><span class="btn btn-primary">Live Preview</span></a>
+    <a href="FullPost.php?id=<?php echo $Id; ?>" target="_blank"><span class="btn btn-primary">Live Preview</span></a>
   </td>
 </tr>
 </tbody>
