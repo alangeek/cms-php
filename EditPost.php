@@ -2,6 +2,7 @@
 <?php require_once "Includes/Functions.php";?>
 <?php require_once "Includes/Sessions.php";?>
 <?php
+$SarchQueryParameter = $_GET['id'];
 if (isset($_POST["Submit"])) {
 	$PostTitle = $_POST["PostTitle"];
 	$Category = $_POST["Category"];
@@ -15,37 +16,38 @@ if (isset($_POST["Submit"])) {
 
 	if (empty($PostTitle)) {
 		$_SESSION["ErrorMessage"] = "O Título não pode estar vazio";
-		header("Location: AddNewPost.php");
+		header("Location: Posts.php");
 		exit;
 	} elseif (strlen($PostTitle) < 5) {
 		$_SESSION["ErrorMessage"] = "O Título do Post deve ter mais de 5 caracteres";
-		header("Location: AddNewPost.php");
+		header("Location: Posts.php");
 		exit;
-	} elseif (strlen($PostText) > 999) {
+	} elseif (strlen($PostText) > 9999) {
 		$_SESSION["ErrorMessage"] = "A Descrição da Postagem deve ter menos de 1000 caracteres";
-		header("Location: AddNewPost.php");
+		header("Location: Posts.php");
 		exit;
 	} else {
-		// Query to insert Post in DB when everything is fine
+		// Query to update Post in DB when everything is fine
 		global $ConnectingDB;
-		$sql = "INSERT INTO posts(datetime,title,category,author,image,post)";
-		$sql .= "VALUES(:dateTime,:postTitle,:categoryName,:adminName,:imageName,:postDescription)";
-		$stmt = $ConnectingDB->prepare($sql);
-		$stmt->bindValue(':dateTime', $DateTime);
-		$stmt->bindValue(':postTitle', $PostTitle);
-		$stmt->bindValue(':categoryName', $Category);
-		$stmt->bindValue(':adminName', $Admin);
-		$stmt->bindValue(':imageName', $Image);
-		$stmt->bindValue(':postDescription', $PostText);
-		$Execute = $stmt->execute();
+		if (!empty($_FILES["$Image"]["name"])) {
+			$sql = "UPDATE posts
+              SET title='$PostTitle', category='$Category', image='$Image', post='$PostText'
+              WHERE id='$SarchQueryParameter'";
+		} else {
+			$sql = "UPDATE posts
+              SET title='$PostTitle', category='$Category', post='$PostText'
+              WHERE id='$SarchQueryParameter'";
+		}
+
+		$Execute = $ConnectingDB->query($sql);
 		move_uploaded_file($_FILES["Image"]["tmp_name"], $Target);
 		if ($Execute) {
-			$_SESSION["SuccessMessage"] = "Post com id : " . $ConnectingDB->lastInsertId() . " Adcionada Com Sucesso";
-			header("Location: AddNewPost.php");
+			$_SESSION["SuccessMessage"] = "Post Atualizada Com Sucesso";
+			header("Location: Posts.php");
 			exit;
 		} else {
 			$_SESSION["ErrorMessage"] = "Algo deu errado. Tente novamente !";
-			header("Location: AddNewPost.php");
+			header("Location: Posts.php");
 			exit;
 		}
 	}
@@ -135,7 +137,6 @@ echo ErrorMessage();
 echo SuccessMessage();
 // Fetching Existing Content according to our
 global $ConnectingDB;
-$SarchQueryParameter = $_GET["id"];
 $sql = "SELECT * FROM posts WHERE id='$SarchQueryParameter'";
 $stmt = $ConnectingDB->query($sql);
 while ($DataRows = $stmt->fetch()) {
@@ -146,7 +147,7 @@ while ($DataRows = $stmt->fetch()) {
 
 }
 ?>
-          <form class="" action="AddNewPost.php" method="POST" enctype="multipart/form-data">
+          <form class="" action="EditPost.php?id=<?php echo $SarchQueryParameter; ?>" method="POST" enctype="multipart/form-data">
             <div class="card bg-secondary text-light mb-3">
               <div class="card-body bg-dark">
                 <div class="form-group">

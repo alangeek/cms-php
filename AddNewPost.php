@@ -21,7 +21,7 @@ if (isset($_POST["Submit"])) {
 		$_SESSION["ErrorMessage"] = "O Título do Post deve ter mais de 5 caracteres";
 		header("Location: AddNewPost.php");
 		exit;
-	} elseif (strlen($PostText) > 999) {
+	} elseif (strlen($PostText) > 9999) {
 		$_SESSION["ErrorMessage"] = "A Descrição da Postagem deve ter menos de 1000 caracteres";
 		header("Location: AddNewPost.php");
 		exit;
