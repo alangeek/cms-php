@@ -3,6 +3,18 @@
 <?php require_once "Includes/Sessions.php";?>
 <?php
 $SarchQueryParameter = $_GET['id'];
+// Fetching Existing Content according to our
+global $ConnectingDB;
+$sql = "SELECT * FROM posts WHERE id='$SarchQueryParameter'";
+$stmt = $ConnectingDB->query($sql);
+while ($DataRows = $stmt->fetch()) {
+  $TitleToBeDeleted    = $DataRows['title'];
+  $CategoryToBeDeleted = $DataRows['category'];
+  $ImageToBeDeleted    = $DataRows['image'];
+  $PostToBeDeleted     = $DataRows['post'];
+
+}
+// echo $ImageToBeDeleted;
 if (isset($_POST["Submit"])) {
 		// Query to delete Post in DB when everything is fine
 		global $ConnectingDB;
@@ -10,7 +22,9 @@ if (isset($_POST["Submit"])) {
 		$Execute = $ConnectingDB->query($sql);
     // var_dump ($Execute);
 		if ($Execute) {
-			$_SESSION["SuccessMessage"] = "Post Atualizada Com Sucesso";
+      $Target_Path_To_DELETE_Image = "uploads/$ImageToBeDeleted";
+      unlink($Target_Path_To_DELETE_Image);/*unlink — Apaga um arquivo*/
+			$_SESSION["SuccessMessage"] = "Post DELETADO Com Sucesso";
 			header("Location: Posts.php");
 			exit;
 		} else {
@@ -102,28 +116,18 @@ if (isset($_POST["Submit"])) {
           <?php
 echo ErrorMessage();
 echo SuccessMessage();
-// Fetching Existing Content according to our
-global $ConnectingDB;
-$sql = "SELECT * FROM posts WHERE id='$SarchQueryParameter'";
-$stmt = $ConnectingDB->query($sql);
-while ($DataRows = $stmt->fetch()) {
-	$TitleToBeUpdated = $DataRows['title'];
-	$CategoryToBeUpdated = $DataRows['category'];
-	$ImageToBeUpdated = $DataRows['image'];
-	$PostToBeUpdated = $DataRows['post'];
 
-}
 ?>
           <form class="" action="DeletePost.php?id=<?php echo $SarchQueryParameter; ?>" method="POST" enctype="multipart/form-data">
             <div class="card bg-secondary text-light mb-3">
               <div class="card-body bg-dark">
                 <div class="form-group">
                   <label for="title"> <span class="FieldInfo"> Titulo do Post: </span></label>
-                  <input disabled class="form-control" type="text" name="PostTitle" id="title" placeholder="Digite o título aqui: " value="<?php echo $TitleToBeUpdated; ?>">
+                  <input disabled class="form-control" type="text" name="PostTitle" id="title" placeholder="Digite o título aqui: " value="<?php echo $TitleToBeDeleted; ?>">
                 </div>
                 <div class="form-group">
                   <span class="FieldInfo">Categoria Existente: </span>
-                  <?php echo $CategoryToBeUpdated; ?>
+                  <?php echo $CategoryToBeDeleted; ?>
                   <br>
                   
                 </div>
@@ -134,7 +138,7 @@ while ($DataRows = $stmt->fetch()) {
                   <div class="form-group">
                     <label for="Post"> <span class="FieldInfo"> Post: </span></label>
                     <textarea disabled class="form-control" id="Post" name="PostDescription" rows="8" cols="80">
-                      <?php echo $PostToBeUpdated; ?>
+                      <?php echo $PostToBeDeleted; ?>
                     </textarea>
 
                   </div>
