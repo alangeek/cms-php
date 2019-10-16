@@ -1,6 +1,7 @@
 <?php require_once "Includes/DB.php";?>
 <?php require_once "Includes/Functions.php";?>
 <?php require_once "Includes/Sessions.php";?>
+<?php $SearchQueryParameter = $_GET["id"]; ?>
 <!doctype html>
 <html lang="pt-br">
   <head>
@@ -10,7 +11,7 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/adminstyles.css">
     <title>Blog Page</title>
   </head>
   <body>
@@ -44,7 +45,7 @@
           <form class="form-inline d-none d-sm-block" action="Blog.php">
             <div class="form-group">
             <input class="form-control mr-2" type="text" name="Search" placeholder="Pesquisar aqui" value="">
-            <button class="btn btn-primary" name="SearchButton">Ir</button>
+            <button class="btn" id="button_go" name="SearchButton">Ir</button>
             </div>
           </form>
         </ul>
@@ -88,12 +89,12 @@ else {
 }
 while ($DataRows = $stmt->fetch()) {
 
-	$PostId = $DataRows["id"];
-	$DateTime = $DataRows["datetime"];
-	$PostTitle = $DataRows["title"];
-	$Category = $DataRows["category"];
-	$Admin = $DataRows["author"];
-	$Image = $DataRows["image"];
+	$PostId          = $DataRows["id"];
+	$DateTime        = $DataRows["datetime"];
+	$PostTitle       = $DataRows["title"];
+	$Category        = $DataRows["category"];
+	$Admin           = $DataRows["author"];
+	$Image           = $DataRows["image"];
 	$PostDescription = $DataRows["post"];
 	?>
           <div class="card">
@@ -109,8 +110,46 @@ while ($DataRows = $stmt->fetch()) {
                 <?php echo htmlentities($PostDescription); ?></p>
             </div>
           </div>
+          <br>
 <?php }?>
+<!-- Comment Part Start -->
+        <div class="">
+          <form class="" action="FullPost.php?id=<?php echo $SearchQueryParameter ?>" method="POST">
+            <div class="card mb-3">
+              <div class="card-header">
+                <h5 class="FieldInfo">Compartilhe seus pensamentos sobre esta postagem</h5>
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                  <input class="form-control" type="text" name="CommenterName" placeholder="Nome" value="">
+                  </div>
+                </div>
 
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    </div>
+                  <input class="form-control" type="email" name="CommenterEmail" placeholder="Email" value="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <textarea name="CommenterThoughts" class="form-control" rows="6" cols="80"></textarea>
+                </div>
+                <div class="">
+                  <button type="submit" name="Submit" id="button">Enviar</button>
+                </div>
+
+
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- Comment Part End -->
         </div>
         <!-- Main Area End -->
 

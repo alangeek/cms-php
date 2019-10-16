@@ -1,5 +1,34 @@
 .FieldInfo{
-	color: rgb(251, 174, 44);
+	color: #0c5460;
 	font-family: bitter,Georgia,"Times New Roman", Times,serif;
 	font-size: 1.2rem;
+}
+
+#button {
+    background-color: rgba(0,0,0,.9);
+    color: #fff;
+    font-weight: bold;
+    border-radius: 15px;
+    border: none;
+    height: 40px;
+    width: 17%;
+}
+
+#button:hover{
+	opacity: 0.8;
+}
+
+#button_go{
+	background-color: #5aafd5;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    height: 40px;
+    width: 50px;
+}
+
+#button_go:hover{
+	opacity: 0.8;
+}	
 }
