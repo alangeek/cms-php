@@ -2,6 +2,47 @@
 <?php require_once "Includes/Functions.php";?>
 <?php require_once "Includes/Sessions.php";?>
 <?php $SearchQueryParameter = $_GET["id"]; ?>
+<?php
+if (isset($_POST["Submit"])) {
+  $Name = $_POST["CommenterName"];
+  $Email = $_POST["CommenterEmail"];
+  $Comment = $_POST["CommenterThoughts"];
+  date_default_timezone_set("America/Sao_Paulo");
+  $CurrentTime = time();
+  $DateTime = strftime("%d-%B-%Y %H:%M:%S", $CurrentTime);
+
+  if (empty($Name)||empty($Email)||empty($Comment)) {
+    $_SESSION["ErrorMessage"] = "Todos os campos devem ser preenchidos";
+    header("Location: FullPost.php?id={$SearchQueryParameter}");
+    exit;
+  } elseif (strlen($Comment) > 500) {
+    $_SESSION["ErrorMessage"] = "O tamanho do comentário deve ter menos de 500 caracteres";
+    header("Location: FullPost.php?id={$SearchQueryParameter}");
+    exit;
+  }  else {
+    // Query to insert comment in DB when everything is fine
+    global $ConnectingDB;
+    $sql = "INSERT INTO category(title,author,datetime)";
+    $sql .= "VALUES(:categoryName,:adminName,:dateTime)";
+    $stmt = $ConnectingDB->prepare($sql);
+    $stmt->bindValue('categoryName', $Category);
+    $stmt->bindValue(':adminName', $Admin);
+    $stmt->bindValue(':dateTime', $DateTime);
+    $Execute = $stmt->execute();
+
+    if ($Execute) {
+      $_SESSION["SuccessMessage"] = "Categoria com id : " . $ConnectingDB->lastInsertId() . " Adcionada Com Sucesso";
+      header("Location: Categories.php");
+      exit;
+    } else {
+      $_SESSION["ErrorMessage"] = "Algo deu errado. Tente novamente !";
+      header("Location: Categories.php");
+      exit;
+    }
+  }
+} // Ending of Submit Button is-Condition
+
+?>
 <!doctype html>
 <html lang="pt-br">
   <head>
@@ -45,7 +86,7 @@
           <form class="form-inline d-none d-sm-block" action="Blog.php">
             <div class="form-group">
             <input class="form-control mr-2" type="text" name="Search" placeholder="Pesquisar aqui" value="">
-            <button class="btn" id="button_go" name="SearchButton">Ir</button>
+            <button class="btn" id="button_go" name="SearchButton">Ir ></button>
             </div>
           </form>
         </ul>
@@ -62,6 +103,10 @@
         <div class="col-sm-8">
           <h1>O Blog da Informação</h1>
           <h1 class="lead">Fique Antenado sobre as Últimas Noticias Mundiais</h1>
+          <?php
+          echo ErrorMessage();
+          echo SuccessMessage();
+          ?>
           <?php
 global $ConnectingDB;
 //SQL query when Search button is active
