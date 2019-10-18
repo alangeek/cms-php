@@ -22,13 +22,14 @@ if (isset($_POST["Submit"])) {
   }  else {
     // Query to insert comment in DB when everything is fine
     global $ConnectingDB;
-    $sql = "INSERT INTO comments(datetime,name,email,comment,approvedby,status)";
-    $sql .= "VALUES(:dateTime,:name,:email,:comment,'Pending','OFF')";
+    $sql = "INSERT INTO comments(datetime,name,email,comment,approvedby,status,post_id)";
+    $sql .= "VALUES(:dateTime,:name,:email,:comment,'Pending','OFF',:PostIdFromURL)";
     $stmt = $ConnectingDB->prepare($sql);
     $stmt->bindValue(':dateTime', $DateTime);
     $stmt->bindValue(':name', $Name);
     $stmt->bindValue(':email', $Email);
     $stmt->bindValue(':comment', $Comment);
+    $stmt->bindValue(':PostIdFromURL', $SearchQueryParameter);
     $Execute = $stmt->execute();
 
     if ($Execute) {
@@ -87,7 +88,7 @@ if (isset($_POST["Submit"])) {
           <form class="form-inline d-none d-sm-block" action="Blog.php">
             <div class="form-group">
             <input class="form-control mr-2" type="text" name="Search" placeholder="Pesquisar aqui" value="">
-            <button class="btn" id="button_go" name="SearchButton">Ir ></button>
+            <button class="btn" id="button_go" name="SearchButton">Ir <i class="fab fa-searchengin"></i> </button>
             </div>
           </form>
         </ul>

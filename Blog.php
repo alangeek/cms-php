@@ -10,6 +10,7 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/adminstyles.css">
     <title>Blog Page</title>
   </head>
   <body>
@@ -43,7 +44,7 @@
           <form class="form-inline d-none d-sm-block" action="Blog.php">
             <div class="form-group">
             <input class="form-control mr-2" type="text" name="Search" placeholder="Pesquisar aqui" value="">
-            <button class="btn btn-primary" name="SearchButton">Ir</button>
+            <button class="btn" id="button_go" name="SearchButton">Ir <i class="fab fa-searchengin"></i></button>
             </div>
           </form>
         </ul>
