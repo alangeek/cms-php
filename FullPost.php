@@ -158,8 +158,35 @@ while ($DataRows = $stmt->fetch()) {
             </div>
           </div>
           <br>
+          <?php }?>
+          <!-- Comment Part Start -->
+          <!-- Fetching existing comment START -->
+            <span class="FieldInfo">Comentários</span>
+            <br><br>
+          <?php
+          global $ConnectingDB;
+          $sql  = "SELECT * FROM comments 
+          WHERE post_id='$SearchQueryParameter' AND status='ON'";
+          $stmt = $ConnectingDB->query($sql);
+          while($DataRows     = $stmt->fetch()) {
+            $CommentDate      = $DataRows['datetime'];
+            $CommenterName    = $DataRows['name'];
+            $CommenterContent = $DataRows['comment'];
+          
+          ?>
+          <div>
+            <div class="media CommentBlock">
+              <img class="d-block img-fluid align-self-start" src="images/comment.png">
+              <div class="media-body ml-2">
+                <h6 class="lead"><?php echo $CommenterName; ?></h6>
+                <p class="small"><?php echo $CommentDate; ?></p>
+                <p><?php echo $CommenterContent; ?></p>
+              </div>
+            </div>
+          </div>
+          <hr>
 <?php }?>
-<!-- Comment Part Start -->
+          <!-- Fetching existing comment END -->
         <div class="">
           <form class="" action="FullPost.php?id=<?php echo $SearchQueryParameter ?>" method="POST">
             <div class="card mb-3">

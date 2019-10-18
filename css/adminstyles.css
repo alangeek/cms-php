@@ -31,4 +31,7 @@
 #button_go:hover{
 	opacity: 0.8;
 }	
+
+.CommentBlock {
+    background-color: #f2f6ff;
 }
