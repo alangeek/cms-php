@@ -4,9 +4,9 @@
 <?php $SearchQueryParameter = $_GET["id"]; ?>
 <?php
 if (isset($_POST["Submit"])) {
-  $Name = $_POST["CommenterName"];
-  $Email = $_POST["CommenterEmail"];
-  $Comment = $_POST["CommenterThoughts"];
+  $Name     = $_POST["CommenterName"];
+  $Email    = $_POST["CommenterEmail"];
+  $Comment  = $_POST["CommenterThoughts"];
   date_default_timezone_set("America/Sao_Paulo");
   $CurrentTime = time();
   $DateTime = strftime("%d-%B-%Y %H:%M:%S", $CurrentTime);
@@ -22,21 +22,22 @@ if (isset($_POST["Submit"])) {
   }  else {
     // Query to insert comment in DB when everything is fine
     global $ConnectingDB;
-    $sql = "INSERT INTO category(title,author,datetime)";
-    $sql .= "VALUES(:categoryName,:adminName,:dateTime)";
+    $sql = "INSERT INTO comments(datetime,name,email,comment,approvedby,status)";
+    $sql .= "VALUES(:dateTime,:name,:email,:comment,'Pending','OFF')";
     $stmt = $ConnectingDB->prepare($sql);
-    $stmt->bindValue('categoryName', $Category);
-    $stmt->bindValue(':adminName', $Admin);
     $stmt->bindValue(':dateTime', $DateTime);
+    $stmt->bindValue(':name', $Name);
+    $stmt->bindValue(':email', $Email);
+    $stmt->bindValue(':comment', $Comment);
     $Execute = $stmt->execute();
 
     if ($Execute) {
-      $_SESSION["SuccessMessage"] = "Categoria com id : " . $ConnectingDB->lastInsertId() . " Adcionada Com Sucesso";
-      header("Location: Categories.php");
+      $_SESSION["SuccessMessage"] = "Comentário Adcionado Com Sucesso";
+      header("Location: FullPost.php?id={$SearchQueryParameter}");
       exit;
     } else {
       $_SESSION["ErrorMessage"] = "Algo deu errado. Tente novamente !";
-      header("Location: Categories.php");
+      header("Location: FullPost.php?id={$SearchQueryParameter}");
       exit;
     }
   }
