@@ -7,13 +7,13 @@ if (isset($_POST["Submit"])) {
   $Name            = $_POST["Name"];
   $Password        = $_POST["Password"];
   $ConfirmPassword = $_POST["ConfirmPassword"];
-  $Admin           = "AlanGeek";
+  $Admin           = $_SESSION["UserName"];
   date_default_timezone_set("America/Sao_Paulo");
   $CurrentTime     = time();
   $DateTime        = strftime("%d-%B-%Y %H:%M:%S", $CurrentTime);
 
-  if (empty($UserName) || empty($Password) || empty($ConfirmPassword)) {
-    $_SESSION["ErrorMessage"] = "Todos os campos devem ser preenchidos";
+  if(empty($UserName)||empty($Password)||empty($ConfirmPassword)){
+    $_SESSION["ErrorMessage"]= "Todos os campos devem ser preenchidos";
     header("Location: Admins.php");
     exit;
   } elseif (strlen($Password) < 4) {
@@ -24,21 +24,25 @@ if (isset($_POST["Submit"])) {
     $_SESSION["ErrorMessage"] = "Senha e Confirmar senha devem corresponder";
     header("Location: Admins.php");
     exit;
+  } elseif (CheckUserNameExistsOrNot($UserName)) {
+    $_SESSION["ErrorMessage"] = "O nome de usuário já existe. Tente outro! ";
+    header("Location: Admins.php");
+    exit;
+    
   } else {
     // Query to insert category new Admin in DB when everything is fine
     global $ConnectingDB;
     $sql = "INSERT INTO admins(datetime,username,password,aname,addedby)";
     $sql .= "VALUES(:dateTime,:userName,:password,:aName,:adminName)";
     $stmt = $ConnectingDB->prepare($sql);
-    $stmt->bindValue(':dateTime', $DateTime);
-    $stmt->bindValue('userName', $UserName);
-    $stmt->bindValue('password', $Password);
-    $stmt->bindValue('aName', $Name);
-    $stmt->bindValue(':adminName', $Admin);
-    $Execute = $stmt->execute();
-
+    $stmt->bindValue(':dateTime',$DateTime);
+    $stmt->bindValue(':userName',$UserName);
+    $stmt->bindValue(':password',$Password);
+    $stmt->bindValue(':aName',$Name);
+    $stmt->bindValue(':adminName',$Admin);
+    $Execute=$stmt->execute();
     if ($Execute) {
-      $_SESSION["SuccessMessage"] = "Novo Admin Adcionado com Sucesso";
+      $_SESSION["SuccessMessage"] = "Novo Admin com o nome de ".$Name." Adcionado com Sucesso";
       header("Location: Admins.php");
       exit;
     } else {
