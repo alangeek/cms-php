@@ -3,42 +3,47 @@
 <?php require_once "Includes/Sessions.php";?>
 <?php
 if (isset($_POST["Submit"])) {
-  $Category = $_POST["CategoryTitle"];
-  $Admin = "AlanGeek";
+  $UserName        = $_POST["Username"];
+  $Name            = $_POST["Name"];
+  $Password        = $_POST["Password"];
+  $ConfirmPassword = $_POST["ConfirmPassword"];
+  $Admin           = "AlanGeek";
   date_default_timezone_set("America/Sao_Paulo");
-  $CurrentTime = time();
-  $DateTime = strftime("%d-%B-%Y %H:%M:%S", $CurrentTime);
+  $CurrentTime     = time();
+  $DateTime        = strftime("%d-%B-%Y %H:%M:%S", $CurrentTime);
 
-  if (empty($Category)) {
+  if (empty($UserName) || empty($Password) || empty($ConfirmPassword)) {
     $_SESSION["ErrorMessage"] = "Todos os campos devem ser preenchidos";
-    header("Location: Categories.php");
+    header("Location: Admins.php");
     exit;
-  } elseif (strlen($Category) < 3) {
-    $_SESSION["ErrorMessage"] = "O título da categoria deve ter mais de 2 caracteres";
-    header("Location: Categories.php");
+  } elseif (strlen($Password) < 4) {
+    $_SESSION["ErrorMessage"] = "A Senha deve ter mais de 3 caracteres";
+    header("Location: Admins.php");
     exit;
-  } elseif (strlen($Category) > 49) {
-    $_SESSION["ErrorMessage"] = "O título da categoria deve ser menos de 50 caracteres";
-    header("Location: Categories.php");
+  } elseif ($Password !== $ConfirmPassword) {
+    $_SESSION["ErrorMessage"] = "Senha e Confirmar senha devem corresponder";
+    header("Location: Admins.php");
     exit;
   } else {
-    // Query to insert category in DB when everything is fine
+    // Query to insert category new Admin in DB when everything is fine
     global $ConnectingDB;
-    $sql = "INSERT INTO category(title,author,datetime)";
-    $sql .= "VALUES(:categoryName,:adminName,:dateTime)";
+    $sql = "INSERT INTO admins(datetime,username,password,aname,addedby)";
+    $sql .= "VALUES(:dateTime,:userName,:password,:aName,:adminName)";
     $stmt = $ConnectingDB->prepare($sql);
-    $stmt->bindValue('categoryName', $Category);
-    $stmt->bindValue(':adminName', $Admin);
     $stmt->bindValue(':dateTime', $DateTime);
+    $stmt->bindValue('userName', $UserName);
+    $stmt->bindValue('password', $Password);
+    $stmt->bindValue('aName', $Name);
+    $stmt->bindValue(':adminName', $Admin);
     $Execute = $stmt->execute();
 
     if ($Execute) {
-      $_SESSION["SuccessMessage"] = "Categoria com id : " . $ConnectingDB->lastInsertId() . " Adcionada Com Sucesso";
-      header("Location: Categories.php");
+      $_SESSION["SuccessMessage"] = "Novo Admin Adcionado com Sucesso";
+      header("Location: Admins.php");
       exit;
     } else {
       $_SESSION["ErrorMessage"] = "Algo deu errado. Tente novamente !";
-      header("Location: Categories.php");
+      header("Location: Admins.php");
       exit;
     }
   }
