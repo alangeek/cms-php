@@ -168,7 +168,7 @@ if (strlen($Admin) > 6) {$Admin = substr($Admin, 0, 6) . '..';}
 
 
     <!-- FOOTER -->
-    <footer class="bg-dark text-white">
+    <footer class="bg-dark text-white fixed-bottom">
       <div class="container">
         <div class="row">
           <div class="col">
