@@ -7,7 +7,7 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/adminstyles.css">
     <title>Login</title>
   </head>
   <body>
@@ -39,21 +39,33 @@
     <!-- Main Area Start -->
     <section class="container py-2 mb-4">
       <div class="row">
-        <div class="offset-sm-3 col-sm-6" style="min-height: 400px;">
-          <div class="card bg-secondary text-light">
+        <div class="offset-sm-3 col-sm-6">
+          <br><br><br><br>
+          <div  id="bg-person" class="card  text-light">
             <div class="card-header">
+              <div class="card-body" id="bg-person-card">
               <h4>Bem Vindo de volta !</h4>
-              <div class="card-body bg-dark">
               </div>
               <form class="" action="Login.php" method="POST">
                 <div class="form-group">
-                  <label for="username"><span class="FieldInfo">Nome de Usuário</span></label>
+                  <label for="username"><span class="color-password">Nome de Usuário</span></label>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      
+                      <span class="input-group-text text-white" id="bg-person-card"><i class="fas fa-user"></i></span>
                     </div>
+                    <input type="text" class="form-control" name="Username" id="username" value="">
                   </div>
                 </div>
+                <div class="form-group">
+                  <label for="password"><span class="color-password">Senha</span></label>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text text-white" id="bg-person-card"><i class="fas fa-lock"></i></span>
+                    </div>
+                    <input type="password" class="form-control" name="Password" id="password" value="">
+                  </div>
+                </div>
+                <input type="submit" name="Submit" class="btn btn-block" id="bt-login" value="Logar">
               </form>
             </div>
           </div>

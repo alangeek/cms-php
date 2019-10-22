@@ -1,3 +1,9 @@
+input[type=submit] {
+    text-transform: uppercase; 
+    font-family: bitter,Georgia,"Times New Roman", Times,serif;
+    font-size: 1.2rem;
+}
+
 .FieldInfo{
 	color: #0c5460;
 	font-family: bitter,Georgia,"Times New Roman", Times,serif;
@@ -34,4 +40,30 @@
 
 .CommentBlock {
     background-color: #f2f6ff;
+}
+
+#bg-person {
+    background-color: #6747c7;
+    border: none;
+    
+}
+
+.color-password {
+    color: #fff;
+    font-family: bitter,Georgia,"Times New Roman", Times,serif;
+    font-size: 1.2rem;
+}
+
+#bg-person-card {
+    background-color: #ff4546;
+    border: none;
+    text-align: center;
+}
+
+#bt-login {
+    background-color: #fff;
+}
+
+#bt-login:hover{
+    opacity: 0.8;
 }
