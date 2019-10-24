@@ -3,11 +3,11 @@
 <?php require_once "Includes/Sessions.php";?>
 <?php
 if (isset($_POST["Submit"])) {
-	$Category = $_POST["CategoryTitle"];
-	$Admin = "AlanGeek";
+	$Category    = $_POST["CategoryTitle"];
+	$Admin       = $_SESSION["UserName"];
 	date_default_timezone_set("America/Sao_Paulo");
 	$CurrentTime = time();
-	$DateTime = strftime("%d-%B-%Y %H:%M:%S", $CurrentTime);
+	$DateTime    = strftime("%d-%B-%Y %H:%M:%S", $CurrentTime);
 
 	if (empty($Category)) {
 		$_SESSION["ErrorMessage"] = "Todos os campos devem ser preenchidos";

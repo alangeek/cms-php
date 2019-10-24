@@ -11,6 +11,20 @@ if (isset($_POST["Submit"])) {
     exit();
   } else {
     // code for checking username and passwrod from Database
+    $Found_Account = Login_Attempt($UserName,$Password);
+    if($Found_Account) {
+      $_SESSION["Userid"]     = $Found_Account["id"];
+      $_SESSION["UserName"]   = $Found_Account["username"];
+      $_SESSION["AdminName"]  = $Found_Account["aname"];
+
+      $_SESSION["SuccessMessage"] = "Bem Vindo ".$_SESSION["AdminName"];
+      header("Location: Dashboard.php");
+      exit();
+    } else {
+      $_SESSION["ErrorMessage"] = "Usuário ou Senha Incorretos";
+      header("Location: Login.php");
+      exit(); 
+    }
 
   }
 }

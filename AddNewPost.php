@@ -3,15 +3,15 @@
 <?php require_once "Includes/Sessions.php";?>
 <?php
 if (isset($_POST["Submit"])) {
-	$PostTitle = $_POST["PostTitle"];
-	$Category = $_POST["Category"];
-	$Image = $_FILES["Image"]["name"];
-	$Target = "uploads/" . basename($_FILES["Image"]["name"]);
-	$PostText = $_POST["PostDescription"];
-	$Admin = "AlanGeek";
+	$PostTitle   = $_POST["PostTitle"];
+	$Category    = $_POST["Category"];
+	$Image       = $_FILES["Image"]["name"];
+	$Target      = "uploads/" . basename($_FILES["Image"]["name"]);
+	$PostText    = $_POST["PostDescription"];
+	$Admin       = $_SESSION["UserName"];
 	date_default_timezone_set("America/Sao_Paulo");
 	$CurrentTime = time();
-	$DateTime = strftime("%d-%B-%Y %H:%M:%S", $CurrentTime);
+	$DateTime    = strftime("%d-%B-%Y %H:%M:%S", $CurrentTime);
 
 	if (empty($PostTitle)) {
 		$_SESSION["ErrorMessage"] = "O Título não pode estar vazio";
