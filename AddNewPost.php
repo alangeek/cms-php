@@ -1,6 +1,7 @@
 <?php require_once "Includes/DB.php";?>
 <?php require_once "Includes/Functions.php";?>
 <?php require_once "Includes/Sessions.php";?>
+<?php Confirm_Login(); ?>
 <?php
 if (isset($_POST["Submit"])) {
 	$PostTitle   = $_POST["PostTitle"];
