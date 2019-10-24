@@ -18,8 +18,13 @@ if (isset($_POST["Submit"])) {
       $_SESSION["AdminName"]  = $Found_Account["aname"];
 
       $_SESSION["SuccessMessage"] = "Bem Vindo ".$_SESSION["AdminName"]."!";
-      header("Location: Dashboard.php");
-      exit();
+      if (isset($_SESSION["TrackingURL"])) {
+        header("Location: {$_SESSION['TrackingURL']}");
+        exit();
+      } else {
+        header("Location: Dashboard.php");
+        exit();
+      }
     } else {
       $_SESSION["ErrorMessage"] = "Usuário ou Senha Incorretos";
       header("Location: Login.php");
