@@ -2,6 +2,10 @@
 <?php require_once "Includes/Functions.php";?>
 <?php require_once "Includes/Sessions.php";?>
 <?php 
+if(isset($_SESSION["UserId"])) {
+  header("Location: Dashboard.php");
+  exit();
+}
 if (isset($_POST["Submit"])) {
   $UserName = $_POST["Username"];
   $Password = $_POST["Password"];
