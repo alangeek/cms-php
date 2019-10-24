@@ -1,3 +1,21 @@
+<?php require_once "Includes/DB.php";?>
+<?php require_once "Includes/Functions.php";?>
+<?php require_once "Includes/Sessions.php";?>
+<?php 
+if (isset($_POST["Submit"])) {
+  $UserName = $_POST["Username"];
+  $Password = $_POST["Password"];
+  if (empty($UserName)||empty($Password)) {
+    $_SESSION["ErrorMessage"] = "Todos os campos devem ser preenchidos";
+    header("Location: Login.php");
+    exit();
+  } else {
+    // code for checking username and passwrod from Database
+
+  }
+}
+
+?>
 <!doctype html>
 <html lang="pt-br">
   <head>
@@ -41,6 +59,10 @@
       <div class="row">
         <div class="offset-sm-3 col-sm-6">
           <br><br><br><br>
+          <?php
+          echo ErrorMessage();
+          echo SuccessMessage();
+          ?>
           <div  id="bg-person" class="card  text-light">
             <div class="card-header">
               <div class="card-body" id="bg-person-card">
