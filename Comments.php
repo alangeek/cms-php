@@ -1,9 +1,7 @@
 <?php require_once "Includes/DB.php";?>
 <?php require_once "Includes/Functions.php";?>
 <?php require_once "Includes/Sessions.php";?>
-<?php
-$_SESSION["TrackingURL"] = $_SERVER["PHP_SELF"]; 
-// echo $_SESSION["TrackingURL"];
+<?php $_SESSION["TrackingURL"] = $_SERVER["PHP_SELF"];
 Confirm_Login(); ?>
 <!doctype html>
 <html lang="pt-br">
@@ -14,7 +12,8 @@ Confirm_Login(); ?>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Posts</title>
+    <link rel="stylesheet" href="css/adminstyles.css">
+    <title>Comentários</title>
   </head>
   <body>
     <!-- NAVBAR -->
@@ -46,7 +45,7 @@ Confirm_Login(); ?>
             <a href="Comments.php" class="nav-link text-info">Comentarios</a>
           </li>
           <li class="nav-item">
-            <a href="Blog.php?page=1" class="nav-link text-info">Live Blog</a>
+            <a href="Blog.php?page=1" target="_blanck" class="nav-link text-info">Live Blog</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -62,115 +61,61 @@ Confirm_Login(); ?>
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-          <h1><i class="fas fa-blog" style="color: #27aae1;"></i> Blog Posts</h1>
-         </div>
-         <div class="col-lg-3 mb-2">
-          <a href="AddNewPost.php" class="btn btn-primary btn-block">
-            <i class="far fa-newspaper"> Add Nova Postagem</i>
-          </a>
-         </div>
-         <div class="col-lg-3 mb-2">
-          <a href="Categories.php" class="btn btn-info btn-block">
-            <i class="fas fa-newspaper"> Add Nova Categoria</i>
-          </a>
-         </div>
-         <div class="col-lg-3 mb-2">
-          <a href="Admins.php" class="btn btn-default btn-block" style="background-color: #f04f24;color: #fff;">
-            <i class="fas fa-user-plus"> Add Novo Admin</i>
-          </a>
-         </div>
-         <div class="col-lg-3 mb-2">
-          <a href="Comments.php" class="btn btn-default btn-block" style="background-color: #2ecc71;color: #fff;">
-            <i class="fas fa-comments"> Aprovar Comentários</i>
-          </a>
-         </div>
+          <h1><i class="fas fa-comments" style="color: #27aae1;"></i> Admin Comentários</h1>
+        </div>
         </div>
       </div>
     </header>
     <!-- HEADER END -->
-
-    <!-- Main Area -->
+    <!-- Main Area Start -->
     <section class="container py-2 mb-4">
-      <div class="row">
-        <div class="col-lg-12">
-          <?php
-          echo ErrorMessage();
-          echo SuccessMessage();
-          ?>
-          <table class="table table-striped table-responsive"> <!-- ------------------------- -->
+      <div class="row" style="min-height: 30px;">
+        <div class="col-lg-12" style="min-height: 400px;">
+          <h2>Comentários não aprovados</h2>
+          <table class="table table-striped table-hover">
             <thead class="thead-dark">
+              <tr>
+                <th>No. </th>
+                <th>Data&Hora</th>
+                <th>Nome</th>
+                <th>Comentário</th>
+                <th>Aprovar</th>
+                <th>Deletar</th>
+                <th>Detalhes</th>
+              </tr>
+            </thead>
+          <?php
+          global $ConnectingDB;
+          $sql = "SELECT * FROM comments WHERE status='OFF' ORDER BY id DESC";
+          $Execute = $ConnectingDB->query($sql);
+          $SrNo = 0;
+          while ($DataRows=$Execute->fetch()) {
+            $CommentId         = $DataRows["id"];
+            $DateTimeOfComment = $DataRows["datetime"];
+            $CommenterName     = $DataRows["name"];
+            $CommentContent    = $DataRows["comment"];
+            $CommentPostId     = $DataRows["post_id"];
+            $SrNo++;
+            // if (strlen($CommenterName)>10) { $CommenterName = substr($CommenterName,0,10).'..';}
+            // if (strlen($DateTimeOfComment)>10) { $DateTimeOfComment = substr($DateTimeOfComment,0,11).'..';}
+          ?>
+          <tbody>
             <tr>
-              <th>#</th>
-              <th>Titulo</th>
-              <th>Categoria</th>
-              <th>Data & Hora</th>
-              <th>Autor</th>
-              <th>Banner</th>
-              <th>Comentários</th>
-              <th>Configurações</th>
-              <th>Live Preview</th>
-            </tr>
-          </thead>
-            <?php
-              global $ConnectingDB;
-              $sql = "SELECT * FROM posts";
-              $stmt = $ConnectingDB->query($sql);
-              $Sr = 0;
-              while ($DataRows = $stmt->fetch()) {
-              	$Id = $DataRows["id"];
-              	$DateTime = $DataRows["datetime"];
-              	$PostTitle = $DataRows["title"];
-              	$Category = $DataRows["category"];
-              	$Admin = $DataRows["author"];
-              	$Image = $DataRows["image"];
-              	$PostText = $DataRows["post"];
-              	$Sr++;
-
-           	?>
-  <tbody>
-      <tr>
-        <td>
-          <?php echo $Sr; ?></td>
-        <td>
-          <?php
-      if (strlen($PostTitle) > 20) {$PostTitle = substr($PostTitle, 0, 15) . '..';}
-      	echo $PostTitle;
-      	?>
-           </td>
-        <td>
-          <?php
-      if (strlen($Category) > 8) {$Category = substr($Category, 0, 8) . '..';}
-      	echo $Category;
-      	?>
-        </td>
-        <td><?php
-      if (strlen($DateTime) > 11) {$DateTime = substr($DateTime, 0, 11) . '..';}
-      	echo $DateTime;?></td>
-        <td>
-          <?php
-      if (strlen($Admin) > 6) {$Admin = substr($Admin, 0, 6) . '..';}
-      	echo $Admin;
-      	?></td>
-        <td><img src="uploads/<?php echo $Image; ?>" width="70px;" height="50px;"></td>
-        <td>Comentários</td>
-        <td>
-          <a href="EditPost.php?id=<?php echo $Id; ?>"><span class="btn btn-warning btn-sm">Editar</span></a>
-          <a href="DeletePost.php?id=<?php echo $Id; ?>"><span class="btn btn-danger btn-sm">Deletar</span></a>
-        </td>
-        <td>
-          <a href="FullPost.php?id=<?php echo $Id; ?>" target="_blank"><span class="btn btn-primary btn-sm">Live Preview</span></a>
-        </td>
-      </tr>
-  </tbody>
-<?php }?>
+              <td><?php echo htmlentities($SrNo); ?></td>
+              <td><?php echo htmlentities($DateTimeOfComment); ?></td>
+              <td><?php echo htmlentities($CommenterName); ?></td>
+              <td><?php echo htmlentities($CommentContent); ?></td>
+              <td><a href="ApproveComment.php?id=<?php echo $CommentId; ?>" class="btn btn-success">Aprovar</a></td>
+              <td><a href="DeleteComment.php?id=<?php echo $CommentId; ?>" class="btn btn-danger">Deletar</a></td>
+              <td><a class="btn btn-primary btn-sm" href="FullPost.php?id=<?php echo $CommentPostId; ?>" target="_blanck">Live Preview</a></td>
+            </tr>            
+          </tbody>
+          <?php } ?>
           </table>
         </div>
       </div>
     </section>
-
     <!-- Main Area End -->
-
-
     <!-- FOOTER -->
     <footer class="bg-dark text-white fixed-bottom">
       <div class="container">
