@@ -166,7 +166,7 @@ while ($DataRows = $stmt->fetch()) {
           <?php
           global $ConnectingDB;
           $sql  = "SELECT * FROM comments 
-          WHERE post_id='$SearchQueryParameter' AND status='OFF'";
+          WHERE post_id='$SearchQueryParameter' AND status='ON'";
           $stmt = $ConnectingDB->query($sql);
           while($DataRows     = $stmt->fetch()) {
             $CommentDate      = $DataRows['datetime'];
