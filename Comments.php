@@ -109,8 +109,49 @@ Confirm_Login(); ?>
               <td><?php echo htmlentities($DateTimeOfComment); ?></td>
               <td><?php echo htmlentities($CommenterName); ?></td>
               <td><?php echo htmlentities($CommentContent); ?></td>
-              <td><a href="ApproveComments.php?id=<?php echo $CommentId; ?>" class="btn btn-success">Aprovar</a></td>
-              <td><a href="DeleteComments.php?id=<?php echo $CommentId; ?>" class="btn btn-danger">Deletar</a></td>
+              <td><a href="ApproveComments.php?id=<?php echo $CommentId; ?>" class="btn btn-success btn-sm">Aprovar</a></td>
+              <td><a href="DeleteComments.php?id=<?php echo $CommentId; ?>" class="btn btn-danger btn-sm">Deletar</a></td>
+              <td><a class="btn btn-primary btn-sm" href="FullPost.php?id=<?php echo $CommentPostId; ?>" target="_blanck">Live Preview</a></td>
+            </tr>            
+          </tbody>
+          <?php } ?>
+          </table>
+          <h2>Comentários aprovados</h2>
+          <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th>No. </th>
+                <th>Data&Hora</th>
+                <th>Nome</th>
+                <th>Comentário</th>
+                <th>Reveter</th>
+                <th>Deletar</th>
+                <th>Detalhes</th>
+              </tr>
+            </thead>
+          <?php
+          global $ConnectingDB;
+          $sql = "SELECT * FROM comments WHERE status='ON' ORDER BY id DESC";
+          $Execute = $ConnectingDB->query($sql);
+          $SrNo = 0;
+          while ($DataRows=$Execute->fetch()) {
+            $CommentId         = $DataRows["id"];
+            $DateTimeOfComment = $DataRows["datetime"];
+            $CommenterName     = $DataRows["name"];
+            $CommentContent    = $DataRows["comment"];
+            $CommentPostId     = $DataRows["post_id"];
+            $SrNo++;
+            // if (strlen($CommenterName)>10) { $CommenterName = substr($CommenterName,0,10).'..';}
+            // if (strlen($DateTimeOfComment)>10) { $DateTimeOfComment = substr($DateTimeOfComment,0,11).'..';}
+          ?>
+          <tbody>
+            <tr>
+              <td><?php echo htmlentities($SrNo); ?></td>
+              <td><?php echo htmlentities($DateTimeOfComment); ?></td>
+              <td><?php echo htmlentities($CommenterName); ?></td>
+              <td><?php echo htmlentities($CommentContent); ?></td>
+              <td><a href="DisApproveComments.php?id=<?php echo $CommentId; ?>" class="btn btn-warning btn-sm text-white">Desaprovar</a></td>
+              <td><a href="DeleteComments.php?id=<?php echo $CommentId; ?>" class="btn btn-danger btn-sm">Deletar</a></td>
               <td><a class="btn btn-primary btn-sm" href="FullPost.php?id=<?php echo $CommentPostId; ?>" target="_blanck">Live Preview</a></td>
             </tr>            
           </tbody>
@@ -125,7 +166,8 @@ Confirm_Login(); ?>
       <div class="container">
         <div class="row">
           <div class="col">
-          <p class="lead text-center">Tema Feito Por | AlanGeek | <span id="year"></span> &copy; ----Todos os Direitos Reservados.----</p>
+
+          <p class="lead text-center">&copy; <span id="year"></span> Alan Christian - All right reserved.</p>
         </div>
         </div>
       </div>
