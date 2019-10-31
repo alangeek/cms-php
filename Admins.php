@@ -74,7 +74,7 @@ if (isset($_POST["Submit"])) {
   <body>
 
     <!-- NAVBAR -->
-    <div style="height: 3px; background: #27aae1;"></div>
+    <div style="height: 1px; background: #27aae1;"></div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a href="#" class="navbar-brand text-primary"> AlanGeek</a>
@@ -112,7 +112,7 @@ if (isset($_POST["Submit"])) {
       </div>
 
     </nav>
-    <div style="height: 3px; background: #27aae1;"></div>
+    <div style="height: 1px; background: #000;"></div>
     <!-- NAVBAR-END-->
 
     <!-- HEADER -->
@@ -163,7 +163,7 @@ echo SuccessMessage();
                 </div>
                 <div class="row">
                   <div class="col-lg-6 mb-2">
-                    <a href="Dashboard.php" class="btn btn-warning btn-block"><i class="fas fa-hand-point-left"></i> Voltar para Dashboard</a>
+                    <a href="Dashboard.php" class="btn btn-warning btn-block text-white"><i class="fas fa-hand-point-left"></i> Voltar para Dashboard</a>
                   </div>
                   <div class="col-lg-6 mb-2">
                     <button type="submit" name="Submit" class="btn btn-success btn-block">
@@ -174,6 +174,47 @@ echo SuccessMessage();
               </div>
             </div>
           </form>
+
+          <h2>Administradores Existentes</h2>
+          <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th>No. </th>
+                <th>Data&Hora</th>
+                <th>Usúario</th>
+                <th>Admin Nome</th>
+                <th>Adcionado Por</th>
+                <th>Ação</th>
+                <!-- <th>Reveter</th> -->
+                <!-- <th>Deletar</th> -->
+              </tr>
+            </thead>
+          <?php
+          global $ConnectingDB;
+          $sql = "SELECT * FROM admins ORDER BY id DESC";
+          $Execute = $ConnectingDB->query($sql);
+          $SrNo = 0;
+          while ($DataRows=$Execute->fetch()) {
+            $AdminId        = $DataRows["id"];
+            $DateTime       = $DataRows["datetime"];
+            $AdminUsername  = $DataRows["username"];
+            $AdminName      = $DataRows["aname"];
+            $AddedBy        = $DataRows["addedby"];
+            $SrNo++;
+            
+          ?>
+          <tbody>
+            <tr>
+              <td><?php echo htmlentities($SrNo); ?></td>
+              <td><?php echo htmlentities($DateTime); ?></td>
+              <td><?php echo htmlentities($AdminUsername); ?></td>
+              <td><?php echo htmlentities($AdminName); ?></td>
+              <td><?php echo htmlentities($AddedBy); ?></td>
+              <td><a href="DeleteAdmin.php?id=<?php echo $AdminId; ?>" class="btn btn-danger btn-sm">Deletar</a></td>
+            </tr>            
+          </tbody>
+          <?php } ?>
+          </table>
         </div>
 
       </div>
