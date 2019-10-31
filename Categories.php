@@ -128,9 +128,9 @@ if (isset($_POST["Submit"])) {
       <div class="row">
         <div class="offset-lg-1 col-lg-10" style="min-height:457px;">
           <?php
-echo ErrorMessage();
-echo SuccessMessage();
-?>
+            echo ErrorMessage();
+            echo SuccessMessage();
+          ?>
           <form class="" action="Categories.php" method="POST">
             <div class="card bg-secondary text-light mb-3">
               <div class="card-header">
@@ -143,7 +143,7 @@ echo SuccessMessage();
                 </div>
                 <div class="row">
                   <div class="col-lg-6 mb-2">
-                    <a href="Dashboard.php" class="btn btn-warning btn-block"><i class="fas fa-hand-point-left"></i> Voltar para Dashboard</a>
+                    <a href="Dashboard.php" class="btn btn-warning btn-block text-white"><i class="fas fa-hand-point-left"></i> Voltar para Dashboard</a>
                   </div>
                   <div class="col-lg-6 mb-2">
                     <button type="submit" name="Submit" class="btn btn-success btn-block">
@@ -154,14 +154,48 @@ echo SuccessMessage();
               </div>
             </div>
           </form>
+          <h2>Categorias Existentes</h2>
+          <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th>No. </th>
+                <th>Data&Hora</th>
+                <th>Nome da Categoria</th>
+                <th>Nome do Criador</th>
+                <th>Ação</th>
+                <!-- <th>Reveter</th> -->
+                <!-- <th>Deletar</th> -->
+              </tr>
+            </thead>
+          <?php
+          global $ConnectingDB;
+          $sql = "SELECT * FROM category ORDER BY id DESC";
+          $Execute = $ConnectingDB->query($sql);
+          $SrNo = 0;
+          while ($DataRows=$Execute->fetch()) {
+            $CategoryId    = $DataRows["id"];
+            $CategoryDate  = $DataRows["datetime"];
+            $CategoryName  = $DataRows["title"];
+            $CreatorName   = $DataRows["author"];
+            $SrNo++;
+            // if (strlen($CommenterName)>10) { $CommenterName = substr($CommenterName,0,10).'..';}
+            // if (strlen($DateTimeOfComment)>10) { $DateTimeOfComment = substr($DateTimeOfComment,0,11).'..';}
+          ?>
+          <tbody>
+            <tr>
+              <td><?php echo htmlentities($SrNo); ?></td>
+              <td><?php echo htmlentities($CategoryDate); ?></td>
+              <td><?php echo htmlentities($CategoryName); ?></td>
+              <td><?php echo htmlentities($CreatorName); ?></td>
+              <td><a href="DeleteCategory.php?id=<?php echo $CategoryId; ?>" class="btn btn-danger btn-sm">Deletar</a></td>
+            </tr>            
+          </tbody>
+          <?php } ?>
+          </table>
+
         </div>
-
       </div>
-
     </section>
-
-
-
 
 
     <!-- End Main Area -->
@@ -171,23 +205,18 @@ echo SuccessMessage();
       <div class="container">
         <div class="row">
           <div class="col">
-          <p class="lead text-center">Tema Feito Por | AlanGeek | <span id="year"></span> &copy; ----Todos os Direitos Reservados.----</p>
+          <p class="lead text-center">&copy; <span id="year"></span> Alan Christian - All right reserved.</p>
         </div>
         </div>
       </div>
     </footer>
     <!-- FOOTER END-->
 
-
-
-
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
     <script>
       $('#year').text(new Date().getFullYear());
     </script>

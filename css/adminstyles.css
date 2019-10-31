@@ -5,7 +5,7 @@ input[type=submit] {
 }
 
 .FieldInfo{
-	color: #0c5460;
+	color: hsl(60, 2%, 48%);
 	font-family: bitter,Georgia,"Times New Roman", Times,serif;
 	font-size: 1.2rem;
 }

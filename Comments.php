@@ -111,7 +111,7 @@ Confirm_Login(); ?>
               <td><?php echo htmlentities($CommentContent); ?></td>
               <td><a href="ApproveComments.php?id=<?php echo $CommentId; ?>" class="btn btn-success btn-sm">Aprovar</a></td>
               <td><a href="DeleteComments.php?id=<?php echo $CommentId; ?>" class="btn btn-danger btn-sm">Deletar</a></td>
-              <td><a class="btn btn-primary btn-sm" href="FullPost.php?id=<?php echo $CommentPostId; ?>" target="_blanck">Live Preview</a></td>
+              <td style="min-width: 140px;"><a class="btn btn-primary btn-sm" href="FullPost.php?id=<?php echo $CommentPostId; ?>" target="_blanck">Live Preview</a></td>
             </tr>            
           </tbody>
           <?php } ?>
@@ -150,9 +150,9 @@ Confirm_Login(); ?>
               <td><?php echo htmlentities($DateTimeOfComment); ?></td>
               <td><?php echo htmlentities($CommenterName); ?></td>
               <td><?php echo htmlentities($CommentContent); ?></td>
-              <td><a href="DisApproveComments.php?id=<?php echo $CommentId; ?>" class="btn btn-warning btn-sm text-white">Desaprovar</a></td>
+              <td style="min-width: 140px;"><a href="DisApproveComments.php?id=<?php echo $CommentId; ?>" class="btn btn-warning btn-sm text-white">Desaprovar</a></td>
               <td><a href="DeleteComments.php?id=<?php echo $CommentId; ?>" class="btn btn-danger btn-sm">Deletar</a></td>
-              <td><a class="btn btn-primary btn-sm" href="FullPost.php?id=<?php echo $CommentPostId; ?>" target="_blanck">Live Preview</a></td>
+              <td style="min-width: 140px;"><a class="btn btn-primary btn-sm" href="FullPost.php?id=<?php echo $CommentPostId; ?>" target="_blanck">Live Preview</a></td>
             </tr>            
           </tbody>
           <?php } ?>
@@ -162,11 +162,10 @@ Confirm_Login(); ?>
     </section>
     <!-- Main Area End -->
     <!-- FOOTER -->
-    <footer class="bg-dark text-white fixed-bottom">
+    <footer class="bg-dark text-white">
       <div class="container">
         <div class="row">
           <div class="col">
-
           <p class="lead text-center">&copy; <span id="year"></span> Alan Christian - All right reserved.</p>
         </div>
         </div>
