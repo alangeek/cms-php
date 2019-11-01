@@ -36,6 +36,24 @@ input[type=submit] {
 
 #button_go:hover{
 	opacity: 0.8;
+}
+
+#buttonAdmin{
+    background-color: #f04f24;
+    color: #fff;
+}
+
+#buttonAdmin:hover{
+    opacity: 0.8;
+}
+
+#buttonComments{
+    background-color: #2ecc71;
+    color: #fff;
+}
+
+#buttonComments:hover{
+    opacity: 0.8;
 }	
 
 .CommentBlock {

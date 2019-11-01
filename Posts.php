@@ -14,11 +14,12 @@ Confirm_Login(); ?>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/adminstyles.css">
     <title>Posts</title>
   </head>
   <body>
     <!-- NAVBAR -->
-    <div style="height: 3px; background: #27aae1;"></div>
+    <div style="height: 1px; background: #27aae1;"></div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a href="#" class="navbar-brand text-primary"> AlanGeek</a>
@@ -55,7 +56,7 @@ Confirm_Login(); ?>
         </div>
       </div>
     </nav>
-    <div style="height: 3px; background: #27aae1;"></div>
+    <div style="height: 1px; background: #000;"></div>
     <!-- NAVBAR-END-->
     <!-- HEADER -->
     <header class="bg-dark text-white py-3">
@@ -75,12 +76,12 @@ Confirm_Login(); ?>
           </a>
          </div>
          <div class="col-lg-3 mb-2">
-          <a href="Admins.php" class="btn btn-default btn-block" style="background-color: #f04f24;color: #fff;">
+          <a href="Admins.php" class="btn  btn-block" id="buttonAdmin">
             <i class="fas fa-user-plus"> Add Novo Admin</i>
           </a>
          </div>
          <div class="col-lg-3 mb-2">
-          <a href="Comments.php" class="btn btn-default btn-block" style="background-color: #2ecc71;color: #fff;">
+          <a href="Comments.php" class="btn btn-block" id="buttonComments">
             <i class="fas fa-comments"> Aprovar Comentários</i>
           </a>
          </div>
@@ -97,7 +98,7 @@ Confirm_Login(); ?>
           echo ErrorMessage();
           echo SuccessMessage();
           ?>
-          <table class="table table-striped table-responsive"> <!-- ------------------------- -->
+          <table class="table table-striped">
             <thead class="thead-dark">
             <tr>
               <th>#</th>
@@ -113,17 +114,17 @@ Confirm_Login(); ?>
           </thead>
             <?php
               global $ConnectingDB;
-              $sql = "SELECT * FROM posts";
+              $sql  = "SELECT * FROM posts ORDER BY id DESC";
               $stmt = $ConnectingDB->query($sql);
-              $Sr = 0;
+              $Sr   = 0;
               while ($DataRows = $stmt->fetch()) {
-              	$Id = $DataRows["id"];
-              	$DateTime = $DataRows["datetime"];
+              	$Id        = $DataRows["id"];
+              	$DateTime  = $DataRows["datetime"];
               	$PostTitle = $DataRows["title"];
-              	$Category = $DataRows["category"];
-              	$Admin = $DataRows["author"];
-              	$Image = $DataRows["image"];
-              	$PostText = $DataRows["post"];
+              	$Category  = $DataRows["category"];
+              	$Admin     = $DataRows["author"];
+              	$Image     = $DataRows["image"];
+              	$PostText  = $DataRows["post"];
               	$Sr++;
 
            	?>
@@ -152,17 +153,34 @@ Confirm_Login(); ?>
       	echo $Admin;
       	?></td>
         <td><img src="uploads/<?php echo $Image; ?>" width="70px;" height="50px;"></td>
-        <td>Comentários</td>
         <td>
-          <a href="EditPost.php?id=<?php echo $Id; ?>"><span class="btn btn-warning btn-sm">Editar</span></a>
-          <a href="DeletePost.php?id=<?php echo $Id; ?>"><span class="btn btn-danger btn-sm">Deletar</span></a>
-        </td>
-        <td>
-          <a href="FullPost.php?id=<?php echo $Id; ?>" target="_blank"><span class="btn btn-primary btn-sm">Live Preview</span></a>
-        </td>
-      </tr>
-  </tbody>
-<?php }?>
+                      <?php $Total = ApproveCommentsAccordingtoPost($Id);
+                      if ($Total>0) {
+                        ?>
+                       <span class="badge badge-success">
+                       <?php
+                        echo $Total; ?>
+                      </span>
+                      <?php } ?>
+                    <?php $Total = DisApproveCommentsAccordingtoPost($Id);
+                      if ($Total>0) {
+                        ?>
+                       <span class="badge badge-danger">
+                       <?php
+                        echo $Total; ?>
+                      </span>
+                      <?php } ?>
+                  </td>                  
+                  <td>
+                    <a href="EditPost.php?id=<?php echo $Id; ?>"><span class="btn btn-warning btn-sm text-white">Editar</span></a>
+                    <a href="DeletePost.php?id=<?php echo $Id; ?>"><span class="btn btn-danger btn-sm">Deletar</span></a>
+                  </td>
+                  <td>
+                    <a href="FullPost.php?id=<?php echo $Id; ?>" target="__blank"><span class="btn btn-info btn-sm">Preview</span></a>
+                  </td>
+                </tr>
+            </tbody>
+          <?php }?>                  
           </table>
         </div>
       </div>
@@ -176,7 +194,7 @@ Confirm_Login(); ?>
       <div class="container">
         <div class="row">
           <div class="col">
-          <p class="lead text-center">Tema Feito Por | AlanGeek | <span id="year"></span> &copy; ----Todos os Direitos Reservados.----</p>
+          <p class="lead text-center">&copy; <span id="year"></span> Alan Christian - All right reserved.</p>
         </div>
         </div>
       </div>

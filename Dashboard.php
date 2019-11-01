@@ -5,7 +5,7 @@
 $_SESSION["TrackingURL"] = $_SERVER["PHP_SELF"]; 
 // echo $_SESSION["TrackingURL"];
 Confirm_Login(); ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <!-- Required meta tags -->
@@ -46,7 +46,7 @@ Confirm_Login(); ?>
             <a href="Comments.php" class="nav-link text-info">Comentarios</a>
           </li>
           <li class="nav-item">
-            <a href="Blog.php?page=1" class="nav-link text-info" target="_blanck">Live Blog</a>
+            <a href="Blog.php?page=1" class="nav-link text-info" target="_blank">Live Blog</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -173,32 +173,43 @@ Confirm_Login(); ?>
                   <td><?php echo $DateTime; ?></td>                  
                   <td><?php echo $Author ?></td>                  
                   <td>
-                    <span class="badge badge-success">00</span>
-                    <span class="badge badge-danger">00</span>
+                      <?php $Total = ApproveCommentsAccordingtoPost($PostId);
+                      if ($Total>0) {
+                        ?>
+                       <span class="badge badge-success">
+                       <?php
+                        echo $Total; ?>
+                      </span>
+                      <?php } ?>
+                    <?php $Total = DisApproveCommentsAccordingtoPost($PostId);
+                      if ($Total>0) {
+                        ?>
+                       <span class="badge badge-danger">
+                       <?php
+                        echo $Total; ?>
+                      </span>
+                      <?php } ?>
                   </td>                  
-                  <td><span class="btn btn-info btn-sm">Preview</span></td>                  
-
+                  <td>
+                  <a target="__blank" href="FullPost.php?id=<?php echo $PostId; ?>">
+                    <span class="btn btn-info btn-sm">Preview</span>
+                  </a>
+                </td>                  
                 </tr>
               </tbody>
              <?php } ?>
-
             </table>
           </div>
           <!-- Right Side Area End -->
-
-
       </div>
     </section>
-
     <!-- Main Area End -->
-
-
     <!-- FOOTER -->
     <footer class="bg-dark text-white">
       <div class="container">
         <div class="row">
           <div class="col">
-          <p class="lead text-center">Tema Feito Por | AlanGeek | <span id="year"></span> &copy; ----Todos os Direitos Reservados.----</p>
+          <p class="lead text-center">&copy; <span id="year"></span> Alan Christian - All right reserved.</p>
         </div>
         </div>
       </div>

@@ -174,7 +174,7 @@ echo SuccessMessage();
       <div class="container">
         <div class="row">
           <div class="col">
-          <p class="lead text-center">Tema Feito Por | AlanGeek | <span id="year"></span> &copy; ----Todos os Direitos Reservados.----</p>
+          <p class="lead text-center">&copy; <span id="year"></span> Alan Christian - All right reserved.</p>
         </div>
         </div>
       </div>

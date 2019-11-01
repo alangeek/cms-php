@@ -134,20 +134,20 @@ if (isset($_POST["Submit"])) {
       <div class="row">
         <div class="offset-lg-1 col-lg-10" style="min-height:457px;">
           <?php
-echo ErrorMessage();
-echo SuccessMessage();
-// Fetching Existing Content according to our
-global $ConnectingDB;
-$sql = "SELECT * FROM posts WHERE id='$SarchQueryParameter'";
-$stmt = $ConnectingDB->query($sql);
-while ($DataRows = $stmt->fetch()) {
-	$TitleToBeUpdated = $DataRows['title'];
-	$CategoryToBeUpdated = $DataRows['category'];
-	$ImageToBeUpdated = $DataRows['image'];
-	$PostToBeUpdated = $DataRows['post'];
+          echo ErrorMessage();
+          echo SuccessMessage();
+          // Fetching Existing Content according to our
+          global $ConnectingDB;
+          $sql = "SELECT * FROM posts WHERE id='$SarchQueryParameter'";
+          $stmt = $ConnectingDB->query($sql);
+          while ($DataRows = $stmt->fetch()) {
+          	$TitleToBeUpdated = $DataRows['title'];
+          	$CategoryToBeUpdated = $DataRows['category'];
+          	$ImageToBeUpdated = $DataRows['image'];
+          	$PostToBeUpdated = $DataRows['post'];
 
-}
-?>
+          }
+          ?>
           <form class="" action="EditPost.php?id=<?php echo $SarchQueryParameter; ?>" method="POST" enctype="multipart/form-data">
             <div class="card bg-secondary text-light mb-3">
               <div class="card-body bg-dark">
@@ -161,17 +161,17 @@ while ($DataRows = $stmt->fetch()) {
                   <br>
                   <label for="CategoryTitle"> <span class="FieldInfo"> Selecionar Categoria: </span></label>
                   <select class="form-control" id="CategoryTitle" name="Category">
-<?php
-//Fetchinng all the categories from category table
-global $ConnectingDB;
-$sql = "SELECT id, title  FROM category";
-$stmt = $ConnectingDB->query($sql);
-while ($DateRows = $stmt->fetch()) {
-	$Id = $DateRows["id"];
-	$categoryName = $DateRows["title"];
-	?>
-                    <option> <?php echo $categoryName; ?></option>
-<?php }?>
+                  <?php
+                  //Fetchinng all the categories from category table
+                  global $ConnectingDB;
+                  $sql = "SELECT id, title  FROM category";
+                  $stmt = $ConnectingDB->query($sql);
+                  while ($DateRows = $stmt->fetch()) {
+                  	$Id = $DateRows["id"];
+                  	$categoryName = $DateRows["title"];
+                  	?>
+                     <option> <?php echo $categoryName; ?></option>
+                  <?php }?>
                   </select>
                 </div>
                 <div class="form-group mb-1">
@@ -209,10 +209,6 @@ while ($DateRows = $stmt->fetch()) {
 
     </section>
 
-
-
-
-
     <!-- End Main Area -->
 
     <!-- FOOTER -->
@@ -220,14 +216,12 @@ while ($DateRows = $stmt->fetch()) {
       <div class="container">
         <div class="row">
           <div class="col">
-          <p class="lead text-center">Tema Feito Por | AlanGeek | <span id="year"></span> &copy; ----Todos os Direitos Reservados.----</p>
+          <p class="lead text-center">&copy; <span id="year"></span> Alan Christian - All right reserved.</p>
         </div>
         </div>
       </div>
     </footer>
     <!-- FOOTER END-->
-
-
 
 
 
