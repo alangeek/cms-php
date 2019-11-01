@@ -140,6 +140,53 @@ Confirm_Login(); ?>
 
         </div>
           <!-- Left Side Area End -->
+          <!-- Right Side Area Star -->
+          <div class="col-lg-10">
+            <h1>Top Posts</h1>
+            <table class="table table-striped table-hover">
+              <thead class="thead-dark">
+                <tr>
+                  <th>No. </th>
+                  <th>Titulo</th>
+                  <th>Data&Hora</th>
+                  <th>Autor</th>
+                  <th>Comentários</th>
+                  <th>Detalhes</th>
+                </tr>
+              </thead>
+              <?php 
+              $SrNo = 0;
+              global $ConnectingDB;
+              $sql  = "SELECT * FROM posts ORDER BY id DESC LIMIT 0,5";
+              $stmt = $ConnectingDB->query($sql);
+              while ($DataRows = $stmt->fetch()) {
+                $PostId   = $DataRows["id"];
+                $DateTime = $DataRows["datetime"];
+                $Author   = $DataRows["author"];
+                $Title    = $DataRows["title"];
+                $SrNo++;
+              ?>
+              <tbody>
+                <tr>
+                  <td><?php echo $SrNo; ?></td>                  
+                  <td><?php echo $Title; ?></td>                  
+                  <td><?php echo $DateTime; ?></td>                  
+                  <td><?php echo $Author ?></td>                  
+                  <td>
+                    <span class="badge badge-success">00</span>
+                    <span class="badge badge-danger">00</span>
+                  </td>                  
+                  <td><span class="btn btn-info btn-sm">Preview</span></td>                  
+
+                </tr>
+              </tbody>
+             <?php } ?>
+
+            </table>
+          </div>
+          <!-- Right Side Area End -->
+
+
       </div>
     </section>
 
