@@ -290,7 +290,7 @@ if (isset($_POST["Submit"])) {
                  $Image    = $DataRows['image'];
               ?>
               <div class="media">
-                <img src="uploads/<?php echo htmlentities($Image); ?>" class="d-block img-fluid align-self-start" width="90" height="94" alt="">
+                <img src="uploads/<?php echo htmlentities($Image); ?>" class="d-block img-fluid align-self-start" width="60"  height="60" alt="">
                 <div class="media-body ml-2">
                   <a href="FullPost.php?id=<?php echo htmlentities($Id); ?>" target="_blank"><h6 class="lead"><?php echo htmlentities($Title); ?></h6></a>
                   <p class="small"><?php echo htmlentities($DateTime); ?></p>
