@@ -89,7 +89,7 @@
           }
           // The default SQL query
           else {
-          	$sql = "SELECT * FROM posts ORDER BY id DESC";
+          	$sql = "SELECT * FROM posts ORDER BY id DESC LIMIT 0,3";
           	$stmt = $ConnectingDB->query($sql);
           }
           while ($DataRows = $stmt->fetch()) {
@@ -133,15 +133,18 @@
             $PostsPagination = $TotalPosts/5;
             $PostsPagination = ceil($PostsPagination);
             for ($i=1; $i <=$PostsPagination; $i++) {
-
-            ?> 
-            <li class="page-item">
+              if (isset($Page)) {
+                if ($i == $Page) { ?> 
+            <li class="page-item active">
               <a href="Blog.php?page=<?php echo $i; ?>" class="page-link"><?php echo $i; ?></a>
             </li>
-
-           <?php } ?>
-
-             
+            <?php
+            }else {
+          ?>   <li class="page-item">
+              <a href="Blog.php?page=<?php echo $i; ?>" class="page-link"><?php echo $i; ?></a>
+            </li>
+          <?php }
+            } } ?>
             </ul>
           </nav>
 
