@@ -87,6 +87,12 @@
             $sql            = "SELECT * FROM posts ORDER BY id DESC LIMIT $ShowPostFrom,5";
             $stmt           = $ConnectingDB->query($sql); 
           }
+          // Query when category is active in URL tab
+          elseif (isset($_GET["category"])) {
+            $Category = $_GET["category"];
+            $sql      = "SELECT * FROM posts WHERE category='$Category' ORDER BY id DESC";
+            $stmt     = $ConnectingDB->query($sql);
+          }
           // The default SQL query
           else {
           	$sql = "SELECT * FROM posts ORDER BY id DESC LIMIT 0,3";
