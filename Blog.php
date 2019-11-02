@@ -154,7 +154,7 @@
           <?php }
             } } ?>
             <!-- Creating Forward Button -->
-            <?php if (isset($Page)) {
+            <?php if (isset($Page)&&!empty($Page)) {
              if ($Page+1<=$PostsPagination) { ?>
              <li class="page-item">
               <a href="Blog.php?page=<?php echo $Page+1; ?>" class="page-link">&raquo;</a>
