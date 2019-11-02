@@ -45,7 +45,7 @@ if (isset($_POST["Submit"])) {
 } // Ending of Submit Button is-Condition
 
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <!-- Required meta tags -->
@@ -59,7 +59,6 @@ if (isset($_POST["Submit"])) {
   </head>
   <body>
     <!-- NAVBAR -->
-    <div style="height: 3px; background: #27aae1;"></div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a href="#" class="navbar-brand text-primary"> AlanGeek</a>
@@ -95,7 +94,6 @@ if (isset($_POST["Submit"])) {
         </div>
       </div>
     </nav>
-    <div style="height: 3px; background: #27aae1;"></div>
     <!-- NAVBAR-END-->
     <!-- HEADER -->
     <div class="container">
@@ -110,46 +108,47 @@ if (isset($_POST["Submit"])) {
           echo SuccessMessage();
           ?>
           <?php
-global $ConnectingDB;
-//SQL query when Search button is active
-if (isset($_GET["SearchButton"])) {
-	$Search = $_GET["Search"];
-	$sql = "SELECT * FROM posts
-  WHERE datetime LIKE :search
-  OR title LIKE :search
-  OR category LIKE :search
-  OR post LIKE :search";
-	$stmt = $ConnectingDB->prepare($sql);
-	$stmt->bindValue(':search', '%' . $Search . '%');
-	$stmt->execute();
-}
-// The default SQL query
-else {
-	$PostIdFromURL = $_GET["id"];
-	if (!isset($PostIdFromURL)) {
-		$_SESSION["ErrorMessage"] = "Bad Request";
-		header("Location: Blog.php");
-		exit;
-	}
-	$sql = "SELECT * FROM posts WHERE id= '$PostIdFromURL'";
-	$stmt = $ConnectingDB->query($sql);
-}
-while ($DataRows = $stmt->fetch()) {
+          global $ConnectingDB;
+          //SQL query when Search button is active
+          if (isset($_GET["SearchButton"])) {
+          	$Search = $_GET["Search"];
+          	$sql = "SELECT * FROM posts
+            WHERE datetime LIKE :search
+            OR title LIKE :search
+            OR category LIKE :search
+            OR post LIKE :search";
+          	$stmt = $ConnectingDB->prepare($sql);
+          	$stmt->bindValue(':search', '%' . $Search . '%');
+          	$stmt->execute();
+          }
+          // The default SQL query
+          else {
+          	$PostIdFromURL = $_GET["id"];
+          	if (!isset($PostIdFromURL)) {
+          		$_SESSION["ErrorMessage"] = "Bad Request";
+          		header("Location: Blog.php");
+          		exit;
+          	}
+          	$sql = "SELECT * FROM posts WHERE id= '$PostIdFromURL'";
+          	$stmt = $ConnectingDB->query($sql);
+          }
+          while ($DataRows = $stmt->fetch()) {
 
-	$PostId          = $DataRows["id"];
-	$DateTime        = $DataRows["datetime"];
-	$PostTitle       = $DataRows["title"];
-	$Category        = $DataRows["category"];
-	$Admin           = $DataRows["author"];
-	$Image           = $DataRows["image"];
-	$PostDescription = $DataRows["post"];
-	?>
+        	$PostId          = $DataRows["id"];
+        	$DateTime        = $DataRows["datetime"];
+        	$PostTitle       = $DataRows["title"];
+        	$Category        = $DataRows["category"];
+        	$Admin           = $DataRows["author"];
+        	$Image           = $DataRows["image"];
+        	$PostDescription = $DataRows["post"];
+        	?>
           <div class="card">
             <img src="uploads/<?php echo htmlentities($Image); ?>" style="max-height: 450px;" class="img-fluid card-img-top" />
             <div class="card-body">
               <h4 class="card-title"><?php echo htmlentities($PostTitle); ?></h4>
-              <small class="text-muted">Escrito Por <?php echo htmlentities($Admin); ?> Em <?php echo htmlentities($DateTime); ?></small>
-              <span style="float: right;" class="badge badge-dark text-light">Comentários 20</span>
+              <small class="text-muted">Categoria: <span class="text-dark"> <?php echo htmlentities($Category); ?></span> & Escrito Por: <span class="text-dark"><?php echo htmlentities($Admin); ?></span> Em:  <span class="text-dark"><?php echo htmlentities($DateTime); ?></span></small>
+
+              <!-- <span style="float: right;" class="badge badge-dark text-light">Comentários 20</span> -->
 
 
               <hr>
@@ -185,7 +184,7 @@ while ($DataRows = $stmt->fetch()) {
             </div>
           </div>
           <hr>
-<?php }?>
+          <?php }?>
           <!-- Fetching existing comment END -->
         <div class="">
           <form class="" action="FullPost.php?id=<?php echo $SearchQueryParameter ?>" method="POST">
@@ -231,7 +230,7 @@ while ($DataRows = $stmt->fetch()) {
 
 
         <!-- Side Area Start -->
-        <div class="col-sm-4" style="min-height: 40px;background-color: red;">
+        <div class="col-sm-4" style="min-height: 40px;background-color: #e9ecef;">
 
         </div>
         <!-- Side Area End -->

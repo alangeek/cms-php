@@ -1,7 +1,7 @@
 <?php require_once "Includes/DB.php";?>
 <?php require_once "Includes/Functions.php";?>
 <?php require_once "Includes/Sessions.php";?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <!-- Required meta tags -->
@@ -15,7 +15,6 @@
   </head>
   <body>
     <!-- NAVBAR -->
-    <div style="height: 3px; background: #27aae1;"></div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a href="#" class="navbar-brand text-primary"> AlanGeek</a>
@@ -44,14 +43,13 @@
           <form class="form-inline d-none d-sm-block" action="Blog.php">
             <div class="form-group">
             <input class="form-control mr-2" type="text" name="Search" placeholder="Pesquisar aqui" value="">
-            <button class="btn" id="button_go" name="SearchButton">Ir <i class="fab fa-searchengin"></i></button>
+            <button class="btn" id="button_go" name="SearchButton"><i class="fas fa-space-shuttle"></i></button>
             </div>
           </form>
         </ul>
         </div>
       </div>
     </nav>
-    <div style="height: 3px; background: #27aae1;"></div>
     <!-- NAVBAR-END-->
     <!-- HEADER -->
     <div class="container">
@@ -62,57 +60,67 @@
           <h1>O Blog da Informação</h1>
           <h1 class="lead">Fique Antenado sobre as Últimas Noticias Mundiais</h1>
           <?php
-echo ErrorMessage();
-echo SuccessMessage();
-?>
+          echo ErrorMessage();
+          echo SuccessMessage();
+          ?>
           <?php
-global $ConnectingDB;
-//SQL query when Search button is active
-if (isset($_GET["SearchButton"])) {
-	$Search = $_GET["Search"];
-	$sql = "SELECT * FROM posts
-  WHERE datetime LIKE :search
-  OR title LIKE :search
-  OR category LIKE :search
-  OR post LIKE :search";
-	$stmt = $ConnectingDB->prepare($sql);
-	$stmt->bindValue(':search', '%' . $Search . '%');
-	$stmt->execute();
-}
-// The default SQL query
-else {
-	$sql = "SELECT * FROM posts ORDER BY id DESC";
-	$stmt = $ConnectingDB->query($sql);
-}
-while ($DataRows = $stmt->fetch()) {
+          global $ConnectingDB;
+          //SQL query when Search button is active
+          if (isset($_GET["SearchButton"])) {
+          	$Search = $_GET["Search"];
+          	$sql = "SELECT * FROM posts
+            WHERE datetime LIKE :search
+            OR title LIKE :search
+            OR category LIKE :search
+            OR post LIKE :search";
+          	$stmt = $ConnectingDB->prepare($sql);
+          	$stmt->bindValue(':search', '%' . $Search . '%');
+          	$stmt->execute();
+          } //Query When Pagination is Acitve i.e Blog.?Page=1 
+          elseif (isset($_GET["page"])) {
+            $Page           = $_GET["page"];
+            if ($Page == 0 || $Page<1) {
+              $ShowPostFrom = 0;
+            } else{
+            $ShowPostFrom   = ($Page*4)-4;
+            }
+            $sql            = "SELECT * FROM posts ORDER BY id DESC LIMIT $ShowPostFrom,4";
+            $stmt           = $ConnectingDB->query($sql); 
+          }
+          // The default SQL query
+          else {
+          	$sql = "SELECT * FROM posts ORDER BY id DESC";
+          	$stmt = $ConnectingDB->query($sql);
+          }
+          while ($DataRows = $stmt->fetch()) {
 
-	$PostId = $DataRows["id"];
-	$DateTime = $DataRows["datetime"];
-	$PostTitle = $DataRows["title"];
-	$Category = $DataRows["category"];
-	$Admin = $DataRows["author"];
-	$Image = $DataRows["image"];
-	$PostDescription = $DataRows["post"];
-	?>
+        	$PostId = $DataRows["id"];
+        	$DateTime = $DataRows["datetime"];
+        	$PostTitle = $DataRows["title"];
+        	$Category = $DataRows["category"];
+        	$Admin = $DataRows["author"];
+        	$Image = $DataRows["image"];
+        	$PostDescription = $DataRows["post"];
+        	?>
           <div class="card">
             <img src="uploads/<?php echo htmlentities($Image); ?>" style="max-height: 450px;" class="img-fluid card-img-top" />
             <div class="card-body">
               <h4 class="card-title"><?php echo htmlentities($PostTitle); ?></h4>
-              <small class="text-muted">Escrito Por <?php echo htmlentities($Admin); ?> Em <?php echo htmlentities($DateTime); ?></small>
-              <span style="float: right;" class="badge badge-dark text-light">Comentários 20</span>
+              <small class="text-muted">Categoria: <span class="text-dark"> <?php echo htmlentities($Category); ?></span> & Escrito Por: <span class="text-dark"><?php echo htmlentities($Admin); ?></span> Em:  <span class="text-dark"><?php echo htmlentities($DateTime); ?></span></small>
+              <span style="float: right;" class="badge badge-dark text-light"><?php echo ApproveCommentsAccordingtoPost($PostId); ?> Comentários</span>
 
 
               <hr>
               <p class="card-text">
                 <?php if (strlen($PostDescription) > 150) {$PostDescription = substr($PostDescription, 0, 150) . "...";}
-	echo htmlentities($PostDescription);?></p>
+              	echo htmlentities($PostDescription);?></p>
                 <a href="FullPost.php?id=<?php echo $PostId; ?>" style="float: right;">
-                  <span class="btn btn-info">Leia Mais >></span>
+                  <span class="btn btn-info">Leia Mais <i class="fas fa-fighter-jet"></i></span>
                 </a>
             </div>
           </div>
           <br>
-<?php }?>
+          <?php }?>
 
         </div>
 
@@ -122,7 +130,7 @@ while ($DataRows = $stmt->fetch()) {
 
 
         <!-- Side Area Start -->
-        <div class="col-sm-4" style="min-height: 40px;background-color: red;">
+        <div class="col-sm-4" style="min-height: 40px;background-color: #e9ecef;">
 
         </div>
         <!-- Side Area End -->

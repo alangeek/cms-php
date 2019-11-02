@@ -47,7 +47,7 @@ Confirm_Login(); ?>
             <a href="Comments.php" class="nav-link text-info">Comentarios</a>
           </li>
           <li class="nav-item">
-            <a href="Blog.php?page=1" class="nav-link text-info">Live Blog</a>
+            <a target="_blank" href="Blog.php?page=1" class="nav-link text-info">Live Blog</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -190,7 +190,7 @@ Confirm_Login(); ?>
 
 
     <!-- FOOTER -->
-    <footer class="bg-dark text-white fixed-bottom">
+    <footer class="bg-dark text-white"> <!---fixed-bottom--->
       <div class="container">
         <div class="row">
           <div class="col">
