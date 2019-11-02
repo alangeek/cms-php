@@ -124,7 +124,15 @@
           <!-- Pagination -->
           <nav>
             <ul class="pagination pagination-md">
+            <!-- Creating Backward Button -->
+            <?php if (isset($Page)) {
+             if ($Page>1) { ?>
+             <li class="page-item">
+              <a href="Blog.php?page=<?php echo $Page-1; ?>" class="page-link">&laquo;</a>
+            </li>
+          <?php } }?>
             <?php
+
             global $ConnectingDB;
             $sql            = "SELECT COUNT(*) FROM posts";
             $stmt           = $ConnectingDB->query($sql);
@@ -145,6 +153,13 @@
             </li>
           <?php }
             } } ?>
+            <!-- Creating Forward Button -->
+            <?php if (isset($Page)) {
+             if ($Page+1<=$PostsPagination) { ?>
+             <li class="page-item">
+              <a href="Blog.php?page=<?php echo $Page+1; ?>" class="page-link">&raquo;</a>
+            </li>
+          <?php } }?>
             </ul>
           </nav>
 
