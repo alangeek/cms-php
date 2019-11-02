@@ -82,9 +82,9 @@
             if ($Page == 0 || $Page<1) {
               $ShowPostFrom = 0;
             } else{
-            $ShowPostFrom   = ($Page*4)-4;
+            $ShowPostFrom   = ($Page*5)-5;
             }
-            $sql            = "SELECT * FROM posts ORDER BY id DESC LIMIT $ShowPostFrom,4";
+            $sql            = "SELECT * FROM posts ORDER BY id DESC LIMIT $ShowPostFrom,5";
             $stmt           = $ConnectingDB->query($sql); 
           }
           // The default SQL query
@@ -121,6 +121,29 @@
           </div>
           <br>
           <?php }?>
+          <!-- Pagination -->
+          <nav>
+            <ul class="pagination pagination-md">
+            <?php
+            global $ConnectingDB;
+            $sql            = "SELECT COUNT(*) FROM posts";
+            $stmt           = $ConnectingDB->query($sql);
+            $RowPagination  = $stmt->fetch();
+            $TotalPosts     = array_shift($RowPagination);
+            $PostsPagination = $TotalPosts/5;
+            $PostsPagination = ceil($PostsPagination);
+            for ($i=1; $i <=$PostsPagination; $i++) {
+
+            ?> 
+            <li class="page-item">
+              <a href="Blog.php?page=<?php echo $i; ?>" class="page-link"><?php echo $i; ?></a>
+            </li>
+
+           <?php } ?>
+
+             
+            </ul>
+          </nav>
 
         </div>
 
