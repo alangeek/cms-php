@@ -85,3 +85,19 @@ input[type=submit] {
 #bt-login:hover{
     opacity: 0.8;
 }
+
+#bgOrange{
+   background-color:  #EA6135;
+}
+
+.heading{
+    font-family: Bitter,Georgia,"Times New Roman",Times,serif;
+    font-weight: bold;
+    color: #26282D;
+}
+
+.heading:hover{
+    color: #fff;
+    background-color: #343A40;
+    cursor: pointer;
+}

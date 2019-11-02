@@ -171,7 +171,54 @@
 
 
         <!-- Side Area Start -->
-        <div class="col-sm-4" style="min-height: 40px;background-color: #e9ecef;">
+         <div class="col-sm-4"><!-- style="min-height: 40px;background-color: #e9ecef; -->
+          <div class="card mt-4">
+            <div class="card-body">
+              <a target="_blanc" href="https://alangeek.github.io/"><img src="images/startblog1.png" class="d-block img-fluid mb-3" alt="" ></a>
+              <div class="text-center text-muted">
+              O segredo por que ninguem fala sobre o <i class="fas fa-bullhorn"></i> Marketing Digital clique no banner acima e acompanhe passo a passo nosso método
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="card">
+            <div class="card-header text-light" id="bgOrange">
+              <h2 class="lead text-center">Inscrever-se ! <i class="fas fa-envelope-open-text"></i></h2>
+            </div>
+            <div class="card-body">
+              <button type="button" class="btn btn-info btn-block text-center text-white mb-4" name="button">Participe do Fórum <i class="fas fa-fire-alt"></i></button>
+              <button type="button" class="btn btn-danger btn-block text-center text-white mb-4" name="button">Login</button>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" name="" placeholder="Digite seu e-mail" value="">
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-info btn-sm text-center text-white" name="button">Inscreva-se agora</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="card">
+            <div class="card-header bg-dark text-light">
+              <h2 class="lead text-center">Categorias <i class="fab fa-readme"></i></h2>
+              </div>
+              <div class="card-body">
+                <?php
+                global $ConnectingDB;
+                $sql  = "SELECT * FROM category ORDER BY id DESC";
+                $stmt = $ConnectingDB->query($sql);
+                while ($DataRows = $stmt->fetch()) {
+                   $CategoryId   = $DataRows["id"];
+                   $CategoryName = $DataRows["title"];
+                ?>
+                <a href="Blog.php?category=<?php echo $CategoryName; ?>"><span class="heading btn"><?php echo $CategoryName; ?></span></a><br>
+                 <?php }?> 
+
+
+            </div>
+          </div>
+
+
+
 
         </div>
         <!-- Side Area End -->
