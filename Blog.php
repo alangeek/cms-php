@@ -112,7 +112,7 @@
             <img src="uploads/<?php echo htmlentities($Image); ?>" style="max-height: 450px;" class="img-fluid card-img-top" />
             <div class="card-body">
               <h4 class="card-title"><?php echo htmlentities($PostTitle); ?></h4>
-              <small class="text-muted">Categoria: <span class="text-dark"> <?php echo htmlentities($Category); ?></span> & Escrito Por: <span class="text-dark"><?php echo htmlentities($Admin); ?></span> Em:  <span class="text-dark"><?php echo htmlentities($DateTime); ?></span></small>
+              <small class="text-muted">Categoria: <span class="text-dark"> <?php echo htmlentities($Category); ?></span> & Escrito Por: <span class="text-dark"><a href="Profile.php?username=<?php echo htmlentities($Admin); ?>"> <?php echo htmlentities($Admin); ?></a></span> Em:  <span class="text-dark"><?php echo htmlentities($DateTime); ?></span></small>
               <span style="float: right;" class="badge badge-dark text-light"><?php echo ApproveCommentsAccordingtoPost($PostId); ?> Comentários</span>
 
 

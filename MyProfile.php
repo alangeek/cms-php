@@ -25,8 +25,8 @@ if (isset($_POST["Submit"])) {
 	$Image       = $_FILES["Image"]["name"];
 	$Target      = "images/".basename($_FILES["Image"]["name"]);
 
-	if (strlen($AHeadline) > 12) {
-		$_SESSION["ErrorMessage"] = "Título deve ter menos de 12 caracteres";
+	if (strlen($AHeadline) > 30) {
+		$_SESSION["ErrorMessage"] = "Título deve ter menos de 30 caracteres";
 		header("Location: MyProfile.php");
 		exit;
 	} elseif (strlen($ABio) > 500) {
@@ -170,7 +170,7 @@ if (isset($_POST["Submit"])) {
                 <div class="form-group">
                   <input class="form-control" type="text" id="title" placeholder="Título" name="Headline">
                   <small class="text-muted">Adicione um título profissional como "Enginner" ou "Architect"</small>
-                  <span class="text-danger">Não mais que 12 caracteres</span>
+                  <span class="text-danger">Não mais que 30 caracteres</span>
                 </div>
                 <div class="form-group">
                     <textarea placeholder="Bio" class="form-control" id="Post" name="Bio" rows="8" cols="80"></textarea>

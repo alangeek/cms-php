@@ -7,12 +7,11 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Categorias</title>
+    <link rel="stylesheet" href="css/adminstyles.css">
+    <title>Perfil</title>
   </head>
   <body>
     <!-- NAVBAR -->
-    <div style="height: 3px; background: #27aae1;"></div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a href="#" class="navbar-brand text-primary"> AlanGeek</a>
@@ -22,47 +21,60 @@
         <div class="collapse navbar-collapse" id="navbarcollapseCMS">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a href="MyProfile.php" class="nav-link text-info"> <i class="fas fa-user"></i> Meu Perfil</a>
+            <a href="Blog.php" class="nav-link text-info">Home</a>
           </li>
           <li class="nav-item">
-            <a href="Dashboard.php" class="nav-link text-info">Dashboard</a>
+            <a href="#" class="nav-link text-info text-info">Sobre</a>
           </li>
           <li class="nav-item">
-            <a href="Posts.php" class="nav-link text-info text-info">Posts</a>
+            <a href="Blog.php" class="nav-link text-info">Blog</a>
           </li>
           <li class="nav-item">
-            <a href="Categories.php" class="nav-link text-info">Categorias</a>
+            <a href="#" class="nav-link text-info">Contato</a>
           </li>
           <li class="nav-item">
-            <a href="Admins.php" class="nav-link text-info">Gerencidor admins</a>
-          </li>
-          <li class="nav-item">
-            <a href="Comments.php" class="nav-link text-info">Comentarios</a>
-          </li>
-          <li class="nav-item">
-            <a href="Blog.php?page=1" class="nav-link text-info">Live Blog</a>
+            <a href="#" class="nav-link text-info">Recursos</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a href="Logout.php" class="nav-link btn btn-outline-secondary"> <i class="fas fa-user-times"></i> Logout</a></li>
+          <form class="form-inline d-none d-sm-block" action="Blog.php">
+            <div class="form-group">
+            <input class="form-control mr-2" type="text" name="Search" placeholder="Pesquisar aqui" value="">
+            <button class="btn" id="button_go" name="SearchButton"><i class="fas fa-space-shuttle"></i></button>
+            </div>
+          </form>
         </ul>
         </div>
       </div>
     </nav>
-    <div style="height: 3px; background: #27aae1;"></div>
     <!-- NAVBAR-END-->
     <!-- HEADER -->
     <header class="bg-dark text-white py-3">
       <div class="container">
         <div class="row">
-          <div class="col-md-12">
-          <h1><i class="fas fa-blog" style="color: #27aae1;"></i> Blog Posts</h1>
+          <div class="col-md-6">
+          <h1><i class="fas fa-user mr-2"></i> Nome</h1>
+          <h3>Headline</h3>
         </div>
         </div>
       </div>
     </header>
     <!-- HEADER END -->
-    <br>
+    <section class="container py-2 mb-4">
+      <div class="row">
+        <div class="col-md-3">
+          <img src="images/avatar.png" class="d-block img-fluid mb-3 rounded-circle" alt="">
+        </div>
+        <div class="col-md-9" style="min-height: 460px;">
+          <div class="card">
+            <div class="card-body">
+              <p class="">lkjçlkqgjrçkh kghrjklç  ghrjkl    ghfhj</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
     <!-- FOOTER -->
     <footer class="bg-dark text-white">
       <div class="container">
