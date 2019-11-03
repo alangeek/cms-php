@@ -17,7 +17,7 @@ Confirm_Login(); ?>
   </head>
   <body>
     <!-- NAVBAR -->
-    <div style="height: 3px; background: #27aae1;"></div>
+    <div style="height: 1px; background: #27aae1;"></div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a href="#" class="navbar-brand text-primary"> AlanGeek</a>
@@ -54,7 +54,7 @@ Confirm_Login(); ?>
         </div>
       </div>
     </nav>
-    <div style="height: 3px; background: #27aae1;"></div>
+    <div style="height: 1px; background: #000;"></div>
     <!-- NAVBAR-END-->
     <!-- HEADER -->
     <header class="bg-dark text-white py-3">

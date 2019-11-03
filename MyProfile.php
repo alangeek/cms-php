@@ -4,6 +4,15 @@
 <?php $_SESSION["TrackingURL"] = $_SERVER["PHP_SELF"];
 Confirm_Login(); ?>
 <?php
+ // Fetchinng the Existing Admin Data
+$AdminId = $_SESSION["UserId"];
+global $ConnectingDB;
+$sql    = "SELECT * FROM admins WHERE id='$AdminId'";
+$stmt   = $ConnectingDB->query($sql);
+while ($DataRows = $stmt->fetch()) {
+  $ExistingName  = $DataRows['aname'];
+}
+ // Fetchinng the Existing Admin Data End
 if (isset($_POST["Submit"])) {
 	$PostTitle   = $_POST["PostTitle"];
 	$Category    = $_POST["Category"];
@@ -55,7 +64,7 @@ if (isset($_POST["Submit"])) {
 
 ?>
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <!-- Required meta tags -->
@@ -67,7 +76,7 @@ if (isset($_POST["Submit"])) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/adminstyles.css">
 
-    <title>Categorias</title>
+    <title>Meu Perfil</title>
   </head>
   <body>
 
@@ -119,7 +128,7 @@ if (isset($_POST["Submit"])) {
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-          <h1><i class="fas fa-edit" style="color: #27aae1;"></i> Adc Novo Post</h1>
+          <h1><i class="fas fa-user mr-2" style="color: #27aae1;"></i> Meu Perfil</h1>
         </div>
         </div>
       </div>
@@ -131,11 +140,27 @@ if (isset($_POST["Submit"])) {
     <!-- Main Area -->
     <section class="container py-2 mb-4">
       <div class="row">
-        <div class="offset-lg-1 col-lg-10" style="min-height:457px;">
+        <!-- Left Area -->
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-header bg-dark text-light text-center">
+              <h3><?php echo $ExistingName; ?></h3>
+            </div>
+            <div class="card-body">
+              <img src="images/avatar.png" class="block img-fluid mb-3" alt="">
+              <div class="">
+                Sou Engenheiro de Software nas horas gosto de programar e & estudar animes jogos
+                Cultura geek na veia hsusu...
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Right Area -->
+        <div class="col-md-9" style="min-height:400px;">
           <?php
-echo ErrorMessage();
-echo SuccessMessage();
-?>
+          echo ErrorMessage();
+          echo SuccessMessage();
+          ?>
           <form class="" action="AddNewPost.php" method="POST" enctype="multipart/form-data">
             <div class="card bg-secondary text-light mb-3">
               <div class="card-body bg-dark">
@@ -146,17 +171,17 @@ echo SuccessMessage();
                 <div class="form-group">
                   <label for="CategoryTitle"> <span class="FieldInfo"> Selecionar Categoria: </span></label>
                   <select class="form-control" id="CategoryTitle" name="Category">
-<?php
-//Fetchinng all the categories from category table
-global $ConnectingDB;
-$sql = "SELECT id, title  FROM category";
-$stmt = $ConnectingDB->query($sql);
-while ($DateRows = $stmt->fetch()) {
-	$Id = $DateRows["id"];
-	$categoryName = $DateRows["title"];
-	?>
-                    <option> <?php echo $categoryName; ?></option>
-<?php }?>
+                    <?php
+                    //Fetchinng all the categories from category table
+                    global $ConnectingDB;
+                    $sql = "SELECT id, title  FROM category";
+                    $stmt = $ConnectingDB->query($sql);
+                    while ($DateRows = $stmt->fetch()) {
+                    	$Id = $DateRows["id"];
+                    	$categoryName = $DateRows["title"];
+                    	?>
+                      <option> <?php echo $categoryName; ?></option>
+                    <?php }?>
                   </select>
                 </div>
                 <div class="form-group mb">
@@ -173,7 +198,7 @@ while ($DateRows = $stmt->fetch()) {
 
                   <div class="row">
                     <div class="col-lg-6 mb-2">
-                      <a href="Dashboard.php" class="btn btn-warning btn-block"><i class="fas fa-hand-point-left"></i> Voltar para Dashboard</a>
+                      <a href="Dashboard.php" class="btn btn-warning btn-block text-white"><i class="fas fa-hand-point-left"></i> Voltar para Dashboard</a>
                     </div>
                   <div class="col-lg-6 mb-2">
                     <button type="submit" name="Submit" class="btn btn-success btn-block">
@@ -190,10 +215,6 @@ while ($DateRows = $stmt->fetch()) {
 
     </section>
 
-
-
-
-
     <!-- End Main Area -->
 
     <!-- FOOTER -->
@@ -207,10 +228,6 @@ while ($DateRows = $stmt->fetch()) {
       </div>
     </footer>
     <!-- FOOTER END-->
-
-
-
-
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
