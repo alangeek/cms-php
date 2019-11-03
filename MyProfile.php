@@ -75,7 +75,6 @@ if (isset($_POST["Submit"])) {
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/adminstyles.css">
-
     <title>Meu Perfil</title>
   </head>
   <body>
@@ -161,41 +160,29 @@ if (isset($_POST["Submit"])) {
           echo ErrorMessage();
           echo SuccessMessage();
           ?>
-          <form class="" action="AddNewPost.php" method="POST" enctype="multipart/form-data">
-            <div class="card bg-secondary text-light mb-3">
-              <div class="card-body bg-dark">
+          <form class="" action="MyProfile.php" method="POST" enctype="multipart/form-data">
+            <div class="card bg-dark text-light">
+              <div class="card-header text-light" id="bgProfile">
+                <h4>Editar Perfil</h4>
+              </div>
+              <div class="card-body">
                 <div class="form-group">
-                  <label for="title"> <span class="FieldInfo"> Titulo do Post: </span></label>
-                  <input class="form-control" type="text" name="PostTitle" id="title" placeholder="Digite o título aqui: " value="">
+                  <input class="form-control" type="text" name="Name" id="title" placeholder="Seu nome " value="">
                 </div>
                 <div class="form-group">
-                  <label for="CategoryTitle"> <span class="FieldInfo"> Selecionar Categoria: </span></label>
-                  <select class="form-control" id="CategoryTitle" name="Category">
-                    <?php
-                    //Fetchinng all the categories from category table
-                    global $ConnectingDB;
-                    $sql = "SELECT id, title  FROM category";
-                    $stmt = $ConnectingDB->query($sql);
-                    while ($DateRows = $stmt->fetch()) {
-                    	$Id = $DateRows["id"];
-                    	$categoryName = $DateRows["title"];
-                    	?>
-                      <option> <?php echo $categoryName; ?></option>
-                    <?php }?>
-                  </select>
+                  <input class="form-control" type="text" id="title" placeholder="Título" name="Headline">
+                  <small class="text-muted">Adicione um título profissional como "Enginner" ou "Architect"</small>
+                  <span class="text-danger">Não mais que 12 caracteres</span>
                 </div>
-                <div class="form-group mb">
+                <div class="form-group">
+                    <textarea placeholder="Bio" class="form-control" id="Post" name="Bio" rows="8" cols="80"></textarea>
+                  </div>
+                <div class="form-group">
                     <div class="custom-file">
                       <input class="custom-file-input" type="File" name="Image" id="imageSelect" value="">
                       <label for="imageSelect" class="custom-file-label">Selecionar Imagem</label>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label for="Post"> <span class="FieldInfo"> Post: </span></label>
-                    <textarea class="form-control" id="Post" name="PostDescription" rows="8" cols="80"></textarea>
-
-                  </div>
-
                   <div class="row">
                     <div class="col-lg-6 mb-2">
                       <a href="Dashboard.php" class="btn btn-warning btn-block text-white"><i class="fas fa-hand-point-left"></i> Voltar para Dashboard</a>

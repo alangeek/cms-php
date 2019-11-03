@@ -101,3 +101,7 @@ input[type=submit] {
     background-color: #343A40;
     cursor: pointer;
 }
+
+#bgProfile {
+    background-color: #273038;
+}
