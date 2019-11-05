@@ -53,7 +53,6 @@ if (isset($_POST["Submit"])) {
   </head>
   <body>
     <!-- NAVBAR -->
-    <div style="height: 3px; background: #27aae1;"></div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a href="#" class="navbar-brand text-primary"> AlanGeek</a>
@@ -64,7 +63,6 @@ if (isset($_POST["Submit"])) {
         </div>
       </div>
     </nav>
-    <div style="height: 3px; background: #27aae1;"></div>
     <!-- NAVBAR-END-->
     <!-- HEADER -->
     <header class="bg-dark text-white py-3">

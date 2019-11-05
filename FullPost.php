@@ -129,8 +129,13 @@ if (isset($_POST["Submit"])) {
           		header("Location: Blog.php");
           		exit;
           	}
-          	$sql = "SELECT * FROM posts WHERE id= '$PostIdFromURL'";
-          	$stmt = $ConnectingDB->query($sql);
+          	$sql    = "SELECT * FROM posts WHERE id= '$PostIdFromURL'";
+          	$stmt   = $ConnectingDB->query($sql);
+            $Result = $stmt->rowcount();
+            if ($Result !=1) {
+              header("Location: Blog.php?page=1");
+              exit();
+            }
           }
           while ($DataRows = $stmt->fetch()) {
 
@@ -146,7 +151,7 @@ if (isset($_POST["Submit"])) {
             <img src="uploads/<?php echo htmlentities($Image); ?>" style="max-height: 450px;" class="img-fluid card-img-top" />
             <div class="card-body">
               <h4 class="card-title"><?php echo htmlentities($PostTitle); ?></h4>
-              <small class="text-muted">Categoria: <span class="text-dark"> <?php echo htmlentities($Category); ?></span> & Escrito Por: <span class="text-dark"><?php echo htmlentities($Admin); ?></span> Em:  <span class="text-dark"><?php echo htmlentities($DateTime); ?></span></small>
+              <small class="text-muted">Categoria: <span class="text-dark"><a href="Blog.php?category=<?php echo htmlentities($Category); ?>"> <?php echo htmlentities($Category); ?></a></span> & Escrito Por: <span class="text-dark"><a href="Profile.php?username=<?php echo htmlentities($Admin); ?>"> <?php echo htmlentities($Admin); ?></a></span> Em:  <span class="text-dark"><?php echo htmlentities($DateTime); ?></span></small>
 
               <!-- <span style="float: right;" class="badge badge-dark text-light">Comentários 20</span> -->
 
@@ -177,9 +182,9 @@ if (isset($_POST["Submit"])) {
             <div class="media CommentBlock">
               <img class="d-block img-fluid align-self-start" src="images/comment.png">
               <div class="media-body ml-2">
-                <h6 class="lead"><?php echo $CommenterName; ?></h6>
-                <p class="small"><?php echo $CommentDate; ?></p>
-                <p><?php echo $CommenterContent; ?></p>
+                <h6 class="lead"><?php echo htmlentities($CommenterName); ?></h6>
+                <p class="small"><?php echo htmlentities($CommentDate); ?></p>
+                <p><?php echo htmlentities($CommenterContent); ?></p>
               </div>
             </div>
           </div>
@@ -187,7 +192,7 @@ if (isset($_POST["Submit"])) {
           <?php }?>
           <!-- Fetching existing comment END -->
         <div class="">
-          <form class="" action="FullPost.php?id=<?php echo $SearchQueryParameter ?>" method="POST">
+          <form class="" action="FullPost.php?id=<?php echo $SearchQueryParameter; ?>" method="POST">
             <div class="card mb-3">
               <div class="card-header">
                 <h5 class="FieldInfo">Compartilhe seus pensamentos sobre esta postagem</h5>

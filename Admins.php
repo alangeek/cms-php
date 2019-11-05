@@ -39,7 +39,7 @@ if (isset($_POST["Submit"])) {
     $stmt = $ConnectingDB->prepare($sql);
     $stmt->bindValue(':dateTime',$DateTime);
     $stmt->bindValue(':userName',$UserName);
-    $stmt->bindValue(':password',$Password);
+    $stmt->bindValue(':password',$Password);//TODO criptografar
     $stmt->bindValue(':aName',$Name);
     $stmt->bindValue(':adminName',$Admin);
     $Execute=$stmt->execute();
