@@ -1,3 +1,29 @@
+<?php require_once "Includes/DB.php";?>
+<?php require_once "Includes/Functions.php";?>
+<?php require_once "Includes/Sessions.php";?>
+<!-- Fetching Existing Data -->
+<?php 
+$SearchQueryParameter = $_GET["username"];
+global $ConnectingDB;
+$sql  = "SELECT aname,aheadline,abio,aimage FROM admins WHERE username=:userName";
+$stmt = $ConnectingDB->prepare($sql);
+$stmt->bindValue(':userName', $SearchQueryParameter);
+$stmt->execute();
+$Result = $stmt->rowcount();
+if($Result == 1){
+  while ($DataRows    = $stmt->fetch()) {
+    $ExistingName     = $DataRows["aname"];
+    $ExistingBio      = $DataRows["abio"];
+    $ExistingImage    = $DataRows["aimage"];
+    $ExistingHeadline = $DataRows["aheadline"];
+  }
+} else {
+  $_SESSION["ErrorMessage"]="Ops Camarada Bad Request !";
+  header("Location: Blog.php?page=1");
+  exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -53,8 +79,8 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6">
-          <h1><i class="fas fa-user mr-2"></i> Nome</h1>
-          <h3>Headline</h3>
+          <h1><i class="fas fa-user mr-2"></i> <?php echo $ExistingName; ?></h1>
+          <h3><?php echo $ExistingHeadline; ?></h3>
         </div>
         </div>
       </div>
@@ -63,12 +89,12 @@
     <section class="container py-2 mb-4">
       <div class="row">
         <div class="col-md-3">
-          <img src="images/avatar.png" class="d-block img-fluid mb-3 rounded-circle" alt="">
+          <img src="images/<?php echo $ExistingImage; ?>" class="d-block img-fluid mb-3 rounded-circle" alt="">
         </div>
         <div class="col-md-9" style="min-height: 460px;">
           <div class="card">
             <div class="card-body">
-              <p class="">lkjçlkqgjrçkh kghrjklç  ghrjkl    ghfhj</p>
+              <p class=""><?php echo $ExistingBio; ?></p>
             </div>
           </div>
         </div>

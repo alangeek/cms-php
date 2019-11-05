@@ -12,7 +12,7 @@ if (isset($_POST["Submit"])) {
   $Admin           = $_SESSION["UserName"];
   date_default_timezone_set("America/Sao_Paulo");
   $CurrentTime     = time();
-  $DateTime        = strftime("%d-%B-%Y %H:%M:%S", $CurrentTime);
+  $DateTime        = strftime("%d/%m/%Y %H:%M:%S", $CurrentTime);
 
   if(empty($UserName)||empty($Password)||empty($ConfirmPassword)){
     $_SESSION["ErrorMessage"]= "Todos os campos devem ser preenchidos";
